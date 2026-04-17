@@ -11,6 +11,15 @@ namespace SEMIDEAD.Patches;
 [HarmonyPatch(typeof(RunManager))]
 static class RunManagerPatch
 {
+    private static bool _wasInGameplayLevel = false;
+
+    private static bool IsCurrentLevelGameplay()
+    {
+        var rm = RunManager.instance;
+        return rm != null && rm.levelCurrent != null && rm.levels != null
+               && rm.levels.Contains(rm.levelCurrent);
+    }
+
     [HarmonyPostfix, HarmonyPatch("ChangeLevel")]
     private static void ChangeLevel_Postfix()
     {
@@ -21,15 +30,25 @@ static class RunManagerPatch
         ShotgunExplosionPatch.RegisterListener();
         PowerUpManager.RegisterOrbListener();
 
+        bool nowGameplay = IsCurrentLevelGameplay();
+
+        // Extraction: transitioning from a gameplay level to shop/lobby means the
+        // players successfully extracted. Fire world TTS on master client only.
+        if (_wasInGameplayLevel && !nowGameplay && SemiFunc.IsMasterClientOrSingleplayer())
+        {
+            SEMIDEAD.Logger.LogInfo("[RunManagerPatch] Extraction detected — firing world TTS.");
+            AnnouncerSystem.SpeakAllPlayers("TEAM DARKSTAR HAS DONE IT AGAIN!");
+        }
+
+        _wasInGameplayLevel = nowGameplay;
+
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
 
         // Only initialise wave systems for actual gameplay levels.
         // During the main menu load Photon is mid-connection and IsMasterClientOrSingleplayer()
         // returns true (not yet connected = treated as singleplayer). Creating singletons and
         // starting coroutines at that point disrupts Photon's region-selection flow.
-        var rm = RunManager.instance;
-        if (rm == null || rm.levelCurrent == null || rm.levels == null
-            || !rm.levels.Contains(rm.levelCurrent))
+        if (!nowGameplay)
         {
             SEMIDEAD.Logger.LogInfo("[RunManagerPatch] Non-gameplay level — skipping init.");
             return;
