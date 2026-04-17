@@ -9,10 +9,10 @@ namespace SEMIDEAD;
 /// <summary>
 /// Two revive mechanics for wave mode:
 ///
-///   1. Pickup revive — a teammate grabbing the death head within 30 seconds
-///      immediately revives the downed player.
-///      After the 30-second window the pickup window closes; the player must wait
-///      for the next wave-start revive.
+///   1. Hold revive — a teammate must hold the death head continuously for 3 seconds
+///      within a 30-second window to revive the downed player. Releasing resets the
+///      timer. After the 30-second window the hold window closes; the player must
+///      wait for the next wave-start revive.
 ///
 ///   2. Wave-start revive — OnWaveStart() is called from WaveManager.StartWave().
 ///      Every player whose isDisabled flag is still set is revived before enemies
@@ -27,10 +27,13 @@ public class ReviveSystem : MonoBehaviour
     public static ReviveSystem? Instance { get; private set; }
     private static ManualLogSource Logger => SEMIDEAD.Logger;
 
-    private const float PickupReviveWindow = 30f;
+    private const float HoldReviveDuration = 3f;
+    private const float PickupReviveWindow  = 30f;
 
     /// <summary>Maps a dead player to the Time.time value when they died.</summary>
     private readonly Dictionary<PlayerAvatar, float> _deathTimes = new();
+    /// <summary>Accumulated continuous hold time per dead player. Resets on release.</summary>
+    private readonly Dictionary<PlayerAvatar, float> _holdProgress = new();
 
     // ---------------------------------------------------------------------------
     // Lifecycle
@@ -90,18 +93,36 @@ public class ReviveSystem : MonoBehaviour
                 continue;
             }
 
-            // Window closed — no more pickup revive until next wave start.
-            if (Time.time - deathTime > PickupReviveWindow) continue;
+            // Window closed — no more hold revive until next wave start.
+            if (Time.time - deathTime > PickupReviveWindow)
+            {
+                _holdProgress.Remove(player);
+                continue;
+            }
 
             var head = player.playerDeathHead;
             if (head?.physGrabObject == null) continue;
 
             if (head.physGrabObject.playerGrabbing.Count > 0)
             {
-                Logger.LogInfo($"[ReviveSystem] Pickup revive — {player.playerName}.");
-                _deathTimes.Remove(player);
-                player.Revive(false);
-                CharacterSystem.Instance?.TriggerSpeech(player, SpeechTrigger.Revived);
+                _holdProgress.TryGetValue(player, out float progress);
+                progress += Time.deltaTime;
+                _holdProgress[player] = progress;
+
+                if (progress >= HoldReviveDuration)
+                {
+                    Logger.LogInfo($"[ReviveSystem] Hold revive — {player.playerName} (held {progress:F1}s).");
+                    _deathTimes.Remove(player);
+                    _holdProgress.Remove(player);
+                    player.Revive(false);
+                    CharacterSystem.Instance?.TriggerSpeech(player, SpeechTrigger.Revived);
+                }
+            }
+            else
+            {
+                // Released — reset hold timer.
+                if (_holdProgress.Remove(player))
+                    Logger.LogInfo($"[ReviveSystem] Hold released — {player.playerName} timer reset.");
             }
         }
     }
@@ -128,6 +149,7 @@ public class ReviveSystem : MonoBehaviour
         }
 
         _deathTimes.Clear();
+        _holdProgress.Clear();
 
         if (revived > 0)
             Logger.LogInfo($"[ReviveSystem] Wave start — revived {revived} dead player(s).");
@@ -140,6 +162,7 @@ public class ReviveSystem : MonoBehaviour
     public void OnLevelSetup()
     {
         _deathTimes.Clear();
+        _holdProgress.Clear();
     }
 }
 
