@@ -1,6 +1,6 @@
 # SEMIDEAD — Director Brief
 *Paste this at the start of every new directing session. Maintained by Claude Code.*
-*Last updated: 2026-03-31 — merged user state summary with latest session additions (CharacterSystem, AnnouncerSystem, ReviveSystem, singleplayer spawn fix)*
+*Last updated: 2026-04-17 — git/GitHub set up; spawn overhaul; orb visual fix; hold revive; staggered wave-1 speeches; player name announcements; betrayal fix; extraction TTS*
 
 ---
 
@@ -68,25 +68,28 @@ SEMIDEAD/
 
 | System | Status | Notes |
 |---|---|---|
-| Wave cycle | ✅ Confirmed | GracePeriod→WaveActive→Intermission, kill counter, wave announcements |
-| Enemy spawning | ✅ Confirmed | Spawns and tracked across multiple waves |
-| WaveKillReward | ✅ Confirmed | SURPLUS granted per kill |
+| Wave cycle | ✅ Confirmed | GracePeriod→WaveActive→Intermission |
+| Enemy spawning | ✅ Confirmed | Player-scaled count, per-player 15u distance |
+| Post-spawn investigate | ⚠️ Unconfirmed | Coroutine → enemy.Spawned → EnemyDirector.SetInvestigate |
+| Elsa waves | ⚠️ Unconfirmed | Every 5th wave; "FETCH ME THEIR SOULS!" TTS 2s before spawn |
+| WaveKillReward | ✅ Confirmed | SURPLUS per kill |
 | StartingPistol | ✅ Confirmed | Round-based weapon injection working |
-| WallBuy placement | ✅ Confirmed | 3 stations placed (18 LevelPoints found in log) |
-| WallBuy proximity | ✅ Confirmed | Buy prompt + "can't afford" check fires on player approach |
-| MysteryBox placement | ✅ Confirmed | Timing fix applied; no longer stuck at truck-only position |
-| EnemyOnScreen fix | ✅ Confirmed | No more KeyNotFoundException for wave enemies |
-| Soul orb suppression | ✅ Confirmed | spawnValuable=false; wave enemies no longer drop extractable orbs |
-| CharacterSystem | ✅ Implemented | TTS character voices. Not yet confirmed in multiplayer this session. |
-| AnnouncerSystem | ✅ Implemented | Kill chain, spree, betrayal, etc. Not yet confirmed in multiplayer. |
-| ReviveSystem | ✅ Implemented | Pickup + wave-start revive. Not yet confirmed in multiplayer. |
-| PowerUpOrb pickup | ⚠️ Unconfirmed | Code correct; need [PowerUpOrb] log line confirming pickup. 10% drop rate. |
-| MonkeyBomb client | ⚠️ Unconfirmed | ToyMonkeyTrapSetupPatch added; need client log showing components added. |
-| MysteryBox visual | ⚠️ Unconfirmed | BoxVisualPath "Valuables/05 Wide/Valuable Manor Animal Crate" — may not exist |
-| WallBuy HUD (clients) | ⚠️ Known gap | Buy prompt only on host HUD — clients see nothing |
-| MysteryBox E-key | ⚠️ Known gap | Proximity-only; no keypress. Real key needs InputManager RPC patch |
-| ShopFilter | ⛔ DISABLED | Guns still appear in truck shop |
-| DoublePoints orb | ⚠️ Visual gap | Same orb size as MaxAmmo — no visual distinction |
+| WallBuy | ✅ Confirmed | Disabled intentionally (guns in shop is fine) |
+| MysteryBox | ✅ Confirmed | Working in MP for host and clients |
+| EnemyOnScreen fix | ✅ Confirmed | No more KeyNotFoundException |
+| Soul orb suppression | ✅ Confirmed | spawnValuable=false |
+| CharacterSystem | ✅ Confirmed | Wave-1 speeches staggered 10/18/26/32s from wave start |
+| AnnouncerSystem | ⚠️ Unconfirmed | Player names (first blood, down, MVP) + betrayal fix unplaytested |
+| ReviveSystem | ✅ Built | 3-second hold revive + wave-start revive — needs playtest |
+| PowerUpOrb visual | ⚠️ Unconfirmed | New sphere+light approach (events 44/45) — needs playtest |
+| PowerUpOrb pickup | ✅ Confirmed | Proximity working |
+| MonkeyBomb client | ⚠️ Unconfirmed | ToyMonkeyTrapSetupPatch — not playtested |
+| MysteryBox visual | ⚠️ Unconfirmed | Animal crate path may be wrong |
+| Betrayal detection | ⚠️ Unconfirmed | New HurtCollider.PlayerHurt Prefix — needs playtest |
+| Extraction TTS | ⚠️ Unconfirmed | "TEAM DARKSTAR HAS DONE IT AGAIN!" on gameplay→shop — needs playtest |
+| WallBuy HUD (clients) | ⚠️ Known gap | Buy prompt host-only; needs client mod to fix |
+| MysteryBox E-key | ⚠️ Known gap | Proximity-only; no keypress |
+| DoublePoints orb | ⚠️ Visual gap | Same sphere color system as other orbs — distinct colors now |
 
 ---
 
@@ -216,7 +219,7 @@ WaveHUD.ShowPowerUpActivated(name, color, duration);  // 0f = until next power-u
 
 - **Phase 1** ✅ — Wave spawning, kill rewards, death tracking
 - **Phase 2** ✅ — StartingPistol, PowerUps, MysteryBox, MonkeyBomb, WallBuy, WaveHUD, CharacterSystem, AnnouncerSystem, ReviveSystem
-- **Phase 3** 🔜 — ShopFilter re-enable, host config (reward/timing tuning), extraction blocking, monkey bomb throw-to-arm, client buy prompt
+- **Phase 3** 🔄 — Spawn overhaul ✅, orb visual ✅, hold revive ✅, player name announcements ✅, betrayal fix ✅, extraction TTS ✅. Remaining: playtest all new systems, verify Elsa wave, verify post-spawn investigate, verify betrayal detection.
 
 ---
 
