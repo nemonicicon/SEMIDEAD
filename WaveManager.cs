@@ -201,8 +201,11 @@ public class WaveManager : MonoBehaviour
         _waveTimeoutTimer = 0f;
         _waveTimeoutFired = false;
 
-        int monsterCount = GetMonsterCount(_waveNumber);
-        Logger.LogInfo($"[WaveManager] ♪ Jingle ♪ — WAVE {_waveNumber} BEGINS ({monsterCount} monsters)");
+        int playerCount   = SemiFunc.PlayerGetList()?.Count ?? 1;
+        int monsterCount  = GetMonsterCount(_waveNumber, playerCount);
+        bool isElsaWave   = (_waveNumber % 5 == 0);
+
+        Logger.LogInfo($"[WaveManager] ♪ Jingle ♪ — WAVE {_waveNumber} BEGINS ({monsterCount} monsters, {playerCount} players, elsa={isElsaWave})");
 
         if (SemiFunc.IsMasterClientOrSingleplayer())
         {
@@ -219,8 +222,19 @@ public class WaveManager : MonoBehaviour
             );
             PlayJingle();
             PlayAmbienceAnnouncementForClients();
-            WaveSpawner.Instance?.SpawnWave(_waveNumber, monsterCount);
+
+            if (isElsaWave)
+                StartCoroutine(ElsaWaveStart(_waveNumber, monsterCount));
+            else
+                WaveSpawner.Instance?.SpawnWave(_waveNumber, monsterCount, false);
         }
+    }
+
+    private IEnumerator ElsaWaveStart(int waveNumber, int monsterCount)
+    {
+        AnnouncerSystem.SpeakAllPlayers("FETCH ME THEIR SOULS!");
+        yield return new WaitForSeconds(2f);
+        WaveSpawner.Instance?.SpawnWave(waveNumber, monsterCount, true);
     }
 
     /// <summary>
@@ -271,19 +285,25 @@ public class WaveManager : MonoBehaviour
         Announcer.SendFocusText("WAVE COMPLETE", Color.green, Color.white, 3f);
         PlayJingle();
 
-        // Max Ammo fires every time a wave ends so players are restocked for the next wave.
         if (SemiFunc.IsMasterClientOrSingleplayer())
+        {
+            AnnouncerSystem.Instance?.AnnounceWaveMVP();
             PowerUpManager.Instance?.ActivatePowerUp(PowerUpType.MaxAmmo);
+        }
 
         _state = WaveState.Intermission;
         _timer = IntermissionDuration;
     }
 
-    private static int GetMonsterCount(int wave) => wave switch
+    private static int GetMonsterCount(int wave, int playerCount)
     {
-        1 => 6,
-        2 => 10,
-        3 => 14,
-        _ => 14 + (wave - 4) * 2,
-    };
+        int scaling = Mathf.FloorToInt(playerCount * 1.5f);
+        return wave switch
+        {
+            1 => 6  + scaling,
+            2 => 10 + scaling,
+            3 => 14 + scaling,
+            _ => 14 + (wave - 4) * 2 + scaling,
+        };
+    }
 }

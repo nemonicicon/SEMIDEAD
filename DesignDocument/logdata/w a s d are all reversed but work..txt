@@ -1,0 +1,3 @@
+w a s d are all reversed but work. the mouse scroll works well. panning with holding the mouse wheel down works until i go to far and the invisible mouse hits the edge of the screen causing the screen to move
+
+omg this always feels so damn good when its working right.

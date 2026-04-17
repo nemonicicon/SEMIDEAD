@@ -1,0 +1,348 @@
+[Message:   BepInEx] BepInEx 5.4.23.5 - REPO (2/8/2026 3:14:38 AM)
+[Info   :   BepInEx] Running under Unity v2022.3.67.7073210
+[Info   :   BepInEx] CLR runtime version: 4.0.30319.42000
+[Info   :   BepInEx] Supports SRE: True
+[Info   :   BepInEx] System platform: Bits64, Windows
+[Message:   BepInEx] Preloader started
+[Info   :   BepInEx] Loaded 1 patcher method from [BepInEx.Preloader 5.4.23.5]
+[Info   :   BepInEx] 1 patcher plugin loaded
+[Info   :   BepInEx] Patching [UnityEngine.CoreModule] with [BepInEx.Chainloader]
+[Message:   BepInEx] Preloader finished
+[Message:   BepInEx] Chainloader ready
+[Message:   BepInEx] Chainloader started
+[Info   :   BepInEx] 8 plugins to load
+[Info   :   BepInEx] Loading [SEMIDEAD 1.0]
+[Info   :  SEMIDEAD] Jacob.SEMIDEAD v1.0 has loaded!
+[Info   :   BepInEx] Loading [RoboUnion 0.5]
+[Info   : RoboUnion] Linkoid.Repo.RoboUnion v0.5 has loaded!
+[Info   :   BepInEx] Loading [Better Team Upgrades 2.2.0]
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Shared Upgrades patch enabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join Player Upgrade Sync patch enabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Better Team Upgrades mod has been activated
+[Info   :   BepInEx] Loading [Menu Lib 2.5.1]
+[Info   :   BepInEx] Loading [REPOConfig 1.2.3]
+[Info   :   BepInEx] Loading [ReturnToLobby 1.0.2]
+[Info   :ReturnToLobby] OrigamiCoder.ReturnToLobby v1.0.2 has loaded!
+[Info   :   BepInEx] Loading [Shop Items spawn in Level 1.7.20]
+[Info   :Shop Items spawn in Level] Plugin REPO_Shop_Items_in_Level is loaded!
+[Info   :Shop Items spawn in Level] Harmony patches applied!
+[Info   :   BepInEx] Loading [REPOLib 3.0.4]
+[Info   :   REPOLib] REPOLib has awoken!
+[Info   :   REPOLib] Loading bundle at C:\Users\jacob\AppData\Roaming\com.kesomannen.gale\repo\profiles\Default\BepInEx\plugins\OrigamiCoder-ReturnToLobby\ReturnToLobby.repobundle...
+[Message:   BepInEx] Chainloader startup complete
+[Info   : Unity Log] Odin Serializer ArchitectureInfo initialization with defaults (all unaligned read/writes disabled).
+[Info   : Unity Log] Odin Serializer detected whitelisted runtime platform WindowsPlayer and memory read test succeeded; enabling all unaligned memory read/writes.
+[Info   :   REPOLib] Adding levels.
+[Info   :   REPOLib] Adding valuables to valuable presets.
+[Info   :   REPOLib] Adding enemies.
+[Info   : Unity Log] VERSION: v0.3.2
+Setting breakpad minidump AppID = 3241660
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198092558706 [API loaded no]
+[Info   : Unity Log] STEAM ID: 76561198092558706
+[Info   : RoboUnion] Creating PhotonWatchdog
+[Info   :   REPOLib] Adding items.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Auto-discovered 13 vanilla upgrade keys and 0 modded upgrade keys.
+[Info   :   REPOLib] Adding commands.
+[Info   : Unity Log] Commands Loaded: 5
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   :   REPOLib] Adding level ambiences.
+[Info   :   REPOLib] Finished loading bundles.
+[Info   : Unity Log] Leave Photon
+[Info   : Unity Log] Steam: Leaving lobby...
+[Info   : Unity Log] Cancelling Steam Auth Ticket...
+[Info   : Unity Log] Leave to Main Menu
+[Info   :   REPOLib] Adding enemies.
+[Info   :Shop Items spawn in Level] Initializing disallowed items list
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Disconnected from server for reason DisconnectByClientLogic
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Photon - Set Region
+[Info   : Unity Log] Photon - Set Version
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] Disconnected from server for reason DisconnectByClientLogic
+[Info   :   REPOLib] Adding items.
+[Info   : Unity Log] Changed level to: Level - Lobby Menu
+[Info   :  SEMIDEAD] [RunManagerPatch] ChangeLevel_Postfix fired.
+[Info   :  SEMIDEAD] [RunManagerPatch] Non-gameplay level — skipping init.
+[Info   : Unity Log] Photon - Set Region
+[Info   : Unity Log] Photon - Set Version
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] PunVoiceClientLogic Awake
+[Info   : Unity Log] Connect random.
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Connected to Master Server
+[Info   : Unity Log] I am creating a custom open lobby named: 21+{SEMIDEAD} MOD TEST, PLAY AND LEAVE FEEDBACK
+[Info   : Unity Log] Created room successfully f1b8461d-4d64-4146-b4d2-21b353c36390 usw
+[Info   : Unity Log] Joined room: f1b8461d-4d64-4146-b4d2-21b353c36390 usw
+[Info   : Unity Log] Created Open Room.
+[Info   : Unity Log] Game Mode: Multiplayer
+[Info   : Unity Log] NetworkConnect destroyed.
+[Info   :   REPOLib] Adding enemies.
+[Info   : Unity Log] Steam: Hosting lobby...
+[Info   : Unity Log] [2026-03-31T21:58:25] [Info] [LOGGER] [VoiceLogger] Disabling VoiceLogger duplicates at the scene root.
+[Warning: Unity Log] [2026-03-31T21:58:25] [Warning] [PhotonVoiceView] [Voice(Clone)] PhotonVoiceView.RecorderInUse.TransmitEnabled is false, don't forget to set it to true to enable transmission.
+[Info   : Unity Log] Steam: Lobby created with ID: 109775244739696102
+[Info   : Unity Log] Steam: Lobby entered with ID: 109775244739696102
+[Info   : Unity Log] Steam: Region:
+[Info   : Unity Log] Created open lobby with ID: 109775244739696102
+[Info   : Unity Log] Steam: Setting lobby data...
+[Info   : Unity Log] Steam: Unlocking lobby...
+[Info   : Unity Log] Calling OpJoinOrCreateRoom for room name 'f1b8461d-4d64-4146-b4d2-21b353c36390_voice_' region usw.
+[Warning: Unity Log] [2026-03-31T21:58:29] [Warning] [PunVoiceClient] [PunVoiceClient(Clone)] [PV] Frame event for voice #1 of not inited player 1
+[Info   : Unity Log] Player entered room: vastalord01
+[Info   : Unity Log] Steam: Lobby member joined: vastalord01
+[Warning: Unity Log] [2026-03-31T21:59:53] [Warning] [PunVoiceClient] [PunVoiceClient(Clone)] [PV] Frame event for voice #1 of not inited player 2
+[Info   : Unity Log] Steam: Locking lobby...
+[Info   : Unity Log] Changed level to: Level - Wizard
+[Info   : Unity Log] Deleted 2/2 files and directories for 'REPO_SAVE_2026_03_31_14_58_25'
+[Info   :  SEMIDEAD] [RunManagerPatch] ChangeLevel_Postfix fired.
+[Info   :  SEMIDEAD] [RunManagerPatch] WaveHUD null — recreating.
+[Info   :  SEMIDEAD] [WaveHUD] Initialised.
+[Info   :  SEMIDEAD] [RunManagerPatch] WaveManager null — recreating.
+[Info   :  SEMIDEAD] [WaveManager] Awake — instance initialised, DontDestroyOnLoad set.
+[Info   :  SEMIDEAD] [WaveManager] Level loaded — 15s grace period started.
+[Info   :  SEMIDEAD] [RunManagerPatch] WaveSpawner null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] PowerUpManager null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] StartingPistol null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] MysteryBox null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] MonkeyBomb null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] WallBuy null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] ReviveSystem null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] CharacterSystem null — recreating.
+[Info   :  SEMIDEAD] [CharacterSystem] tubaplayer221 → Dempsey
+[Info   :  SEMIDEAD] [CharacterSystem] vastalord01 → Richtofen
+[Info   :  SEMIDEAD] [RunManagerPatch] AnnouncerSystem null — recreating.
+[Info   :  SEMIDEAD] [WaveManager] Start — Update loop active.
+[Info   :  SEMIDEAD] [WaveManager] Jingle loaded from embedded resource.
+[Info   :   REPOLib] Adding enemies.
+[Info   :  SEMIDEAD] [MysteryBox] LevelPointsGetAll returned 12 point(s) (10 non-truck) after 2.5s.
+[Warning:  SEMIDEAD] [MysteryBox] NavMesh snap failed at (4.99, 0.00, 2.45) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [MysteryBox] Synced box position to room properties.
+[Info   :  SEMIDEAD] [MysteryBox] Box placed at (4.99, 0.00, 2.45).
+[Info   :  SEMIDEAD] [WallBuy] LevelPoints: 12 total, 10 non-truck (after 2.5s).
+[Info   :  SEMIDEAD] [WallBuy] MysteryBox occupied slot at (4.99, 0.00, 2.45).
+[Info   :  SEMIDEAD] [WallBuy] Candidate 1: pos=(-0.02, 0.00, 7.74) navHit=False tooClose=False
+[Info   :  SEMIDEAD] [WallBuy] Station 1: C.A.R.T. Cannon at (-0.02, 0.00, 7.74)
+[Info   :  SEMIDEAD] [WallBuy] Candidate 2: pos=(0.00, 0.00, -5.00) navHit=False tooClose=False
+[Info   :  SEMIDEAD] [WallBuy] Station 2: C.A.R.T. Cannon at (0.00, 0.00, -5.00)
+[Info   :  SEMIDEAD] [WallBuy] Candidate 3: pos=(5.00, 0.00, 7.50) navHit=False tooClose=False
+[Info   :  SEMIDEAD] [WallBuy] Station 3: Gun at (5.00, 0.00, 7.50)
+[Info   :  SEMIDEAD] [WallBuy] 3 station(s) placed (tried 3 candidate(s)).
+[Info   :  SEMIDEAD] [WallBuy] Synced 3 station(s) to room properties.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Player tubaplayer221 (76561198092558706) is ready. Starting sync...
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Skipping playerUpgradeMapPlayerCount because config toggle 'Vanilla Upgrade Settings:UpgradeMapPlayerCount' is disabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Sync complete for tubaplayer221.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Player vastalord01 (76561198818769123) is ready. Starting sync...
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Skipping playerUpgradeMapPlayerCount because config toggle 'Vanilla Upgrade Settings:UpgradeMapPlayerCount' is disabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Sync complete for vastalord01.
+[Info   :  SEMIDEAD] [MonkeyBomb] Spawning monkey 1/2 at (1.66, 1.43, -13.93).
+[Info   :  SEMIDEAD] [MonkeyBomb] Spawning monkey 2/2 at (1.66, 1.43, -12.46).
+[Info   :  SEMIDEAD] [MonkeyBomb] Spawned 2 Toy Monkey(s).
+[Info   :  SEMIDEAD] [StartingPistol] ITEMS — Guns:
+  "Item Cart Cannon" (C.A.R.T. Cannon)
+  "Item Cart Laser" (C.A.R.T. Laser)
+  "Item Gun Handgun" (Gun)
+  "Item Gun Laser" (Photon Blaster)
+  "Item Gun Shockwave" (Pulse Pistol)
+  "Item Gun Shotgun" (Shotgun)
+  "Item Gun Stun" (Boltzap)
+  "Item Gun Tranq" (Tranq Gun)
+Melee:
+  "Item Melee Baseball Bat" (Baseball Bat)
+  "Item Melee Frying Pan" (Frying Pan)
+  "Item Melee Inflatable Hammer" (Inflatable Hammer)
+  "Item Melee Sledge Hammer" (Sledge Hammer)
+  "Item Melee Stun Baton" (Prodzap)
+  "Item Melee Sword" (Sword)
+
+[Info   :  SEMIDEAD] [StartingPistol] Round 1: injected 8 item(s) for 2 player(s).
+[Info   :  SEMIDEAD] [MonkeyBomb] ToyMonkeyTrap.Start() patch — isMaster=True isMonkeyBomb=True alreadySetup=True
+[Info   :  SEMIDEAD] [MonkeyBomb] ItemAttributes.Start() — safe defaults applied.
+[Info   :  SEMIDEAD] [MonkeyBomb] Boombox music source ready.
+[Info   :  SEMIDEAD] [MonkeyBomb] ToyMonkeyTrap.Start() patch — isMaster=True isMonkeyBomb=True alreadySetup=True
+[Info   :  SEMIDEAD] [MonkeyBomb] ItemAttributes.Start() — safe defaults applied.
+[Info   :  SEMIDEAD] [MonkeyBomb] Boombox music source ready.
+[Info   :  SEMIDEAD] [WaveManager] ♪ Jingle ♪ — WAVE 1 BEGINS (6 monsters)
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> WAVE 1
+[Info   :  SEMIDEAD] [WaveSpawner] Starting spawn — wave 1, 6 enemies.
+[Warning:  SEMIDEAD] [WaveSpawner] NavMesh snap failed at (10.22, 0.00, 17.71) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Tricycle at (10.22, 0.00, 17.71) (Y=0.000)
+[Warning: Unity Log] Failed to create agent because there is no valid NavMesh
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Tricycle initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Tricycle registered (fast=False). Wave total: 1
+[Warning:  SEMIDEAD] [WaveSpawner] NavMesh snap failed at (18.03, 0.00, 10.58) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Slow Mouth at (18.03, 0.00, 10.58) (Y=0.000)
+[Warning: Unity Log] Failed to create agent because there is no valid NavMesh
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth registered (fast=False). Wave total: 2
+[Warning:  SEMIDEAD] [WaveSpawner] NavMesh snap failed at (45.00, 0.00, 17.50) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Elsa at (45.00, 0.00, 17.50) (Y=0.000)
+[Warning: Unity Log] Failed to create agent because there is no valid NavMesh
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa registered (fast=False). Wave total: 3
+[Warning: Unity Log] Failed to create agent because there is no valid NavMesh
+[Warning:  SEMIDEAD] [WaveSpawner] NavMesh snap failed at (29.49, 0.00, 22.58) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Elsa at (29.49, 0.00, 22.58) (Y=0.000)
+[Warning: Unity Log] Failed to create agent because there is no valid NavMesh
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa registered (fast=False). Wave total: 4
+[Warning:  SEMIDEAD] [WaveSpawner] NavMesh snap failed at (17.59, 0.00, 18.09) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Thin Man at (17.59, 0.00, 18.09) (Y=0.000)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Thin Man initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Thin Man registered (fast=False). Wave total: 5
+[Info   :Shop Items spawn in Level] Found 187 potential volumes to spawn items in
+[Info   :Shop Items spawn in Level] Upgrade item spawn chance: 1.530002% on 112 tiny volumes
+[Info   :Shop Items spawn in Level] Drone item spawn chance: 3.8% on 35 small volumes
+[Info   :Shop Items spawn in Level] Selecting Item Drone Battery at a chance of 100.00% compared to others of type drone (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Drone Battery at a chance of 100.00% compared to others of type drone (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Upgrade Player Health at a chance of 10.00% compared to others of type item_upgrade (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Upgrade Player Crouch Rest at a chance of 10.00% compared to others of type item_upgrade (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Drone Battery at a chance of 100.00% compared to others of type drone (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Upgrade Player Grab Strength at a chance of 10.00% compared to others of type item_upgrade (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Upgrade Player Tumble Launch at a chance of 10.00% compared to others of type item_upgrade (equal chance)
+[Info   :Shop Items spawn in Level] Spawned 7 items in total
+[Warning:  SEMIDEAD] [WaveSpawner] NavMesh snap failed at (14.91, 0.00, 28.57) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Thin Man at (14.91, 0.00, 28.57) (Y=0.000)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Thin Man initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Thin Man registered (fast=False). Wave total: 6
+[Info   :  SEMIDEAD] [MonkeyBomb] Armed — 7s fuse started.
+[Info   :  SEMIDEAD] [MonkeyBomb] Detonating at (-1.46, 0.50, -2.49) (radius 8).
+[Info   :  SEMIDEAD] [MonkeyBomb] Hit 0 enemies.
+[Info   :  SEMIDEAD] [WallBuy] vastalord01 can't afford C.A.R.T. Cannon ($0/$500).
+[Info   :  SEMIDEAD] [WallBuy] tubaplayer221 can't afford C.A.R.T. Cannon ($0/$500).
+[Info   :  SEMIDEAD] [MysteryBox] vastalord01 — not enough SURPLUS (0/500).
+[Info   :  SEMIDEAD] [MysteryBox] vastalord01 — not enough SURPLUS (0/500).
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Tricycle(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Dropping InstaKill orb — path 'Valuables/Enemy Valuable - Medium', pos (10.22, 0.50, 17.71).
+[Info   :  SEMIDEAD] [PowerUpManager] Orb spawned — InstaKill, PowerUpOrb component added.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 5 remaining.
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> FIRST BLOOD
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Tricycle(Clone)
+[Info   :  SEMIDEAD] [PowerUpOrb] InstaKill orb active at (10.22, 0.50, 17.71). Lifetime=30s.
+[Info   :  SEMIDEAD] [MysteryBox] vastalord01 — not enough SURPLUS (25/500).
+[Info   :  SEMIDEAD] [MysteryBox] vastalord01 — not enough SURPLUS (25/500).
+[Info   :  SEMIDEAD] [MysteryBox] vastalord01 — not enough SURPLUS (25/500).
+[Info   :  SEMIDEAD] [WallBuy] tubaplayer221 can't afford Gun ($25/$500).
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Slow Mouth(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.72 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 4 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Slow Mouth(Clone)
+[Info   :Shop Items spawn in Level] Enemy Enemy - Robe(Clone) spawned a valuable!
+[Info   :Shop Items spawn in Level] Health pack spawn roll failed (chance: 14.43%)
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Thin Man(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.54 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 3 remaining.
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> DOUBLE KILL
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Thin Man(Clone)
+[Info   :  SEMIDEAD] [WallBuy] tubaplayer221 can't afford Gun ($75/$500).
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Thin Man(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Dropping InstaKill orb — path 'Valuables/Enemy Valuable - Medium', pos (14.91, 0.50, 28.57).
+[Info   :  SEMIDEAD] [PowerUpManager] Orb spawned — InstaKill, PowerUpOrb component added.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 2 remaining.
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> KILLING SPREE
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Thin Man(Clone)
+[Info   :  SEMIDEAD] [PowerUpOrb] InstaKill orb active at (14.91, 0.50, 28.57). Lifetime=30s.
+[Info   :  SEMIDEAD] [WallBuy] vastalord01 can't afford Gun ($100/$500).
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Elsa(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.41 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 1 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Elsa(Clone)
+[Warning: Unity Log] Can not play a disabled audio source
+[Info   :  SEMIDEAD] [PowerUpOrb] InstaKill orb expired.
+[Info   :Shop Items spawn in Level] Enemy Enemy - Elsa(Clone) spawned a valuable!
+[Info   :Shop Items spawn in Level] Health pack spawn roll failed (chance: 14.43%)
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> LONE SURVIVOR!
+[Info   :  SEMIDEAD] [ReviveSystem] tubaplayer221 down — 30s pickup window open.
+[Info   :  SEMIDEAD] [PowerUpOrb] InstaKill orb expired.
+[Info   :  SEMIDEAD] [WaveManager] Wave 1 timed out — rushing enemies at players.
+[Info   :  SEMIDEAD] [WaveSpawner] RushEnemiesAtPlayers — forcing all wave enemies toward players.
+[Info   :  SEMIDEAD] [WaveSpawner] Rushed 1/1 enemies toward (15.93, 0.62, 3.97).
+[Info   :  SEMIDEAD] [WallBuy] vastalord01 can't afford Gun ($125/$500).
+[Info   :  SEMIDEAD] [WaveManager] Rush timeout expired — silently clearing wave 1.
+[Info   :  SEMIDEAD] [WaveSpawner] SilentKillAll — clearing 1 enemies (no rewards).
+[Info   :  SEMIDEAD] [WaveManager] ♪ Jingle ♪ — Wave 1 cleared! Intermission: 30s
+[Info   :  SEMIDEAD] [PowerUpManager] Activating MaxAmmo.
+[Info   :  SEMIDEAD] [PowerUpManager] MAX AMMO — restoring all ItemBattery components.
+[Info   :  SEMIDEAD] [PowerUpManager] Max Ammo restored 9 battery/batteries.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Elsa(Clone)
+[Info   :  SEMIDEAD] [MysteryBox] vastalord01 — not enough SURPLUS (125/500).
+[Info   :  SEMIDEAD] [WaveManager] ♪ Jingle ♪ — WAVE 2 BEGINS (10 monsters)
+[Info   :  SEMIDEAD] [StartingPistol] Respawn pistol spawned for tubaplayer221.
+[Info   :  SEMIDEAD] [ReviveSystem] Wave start — revived 1 dead player(s).
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> WAVE 2
+[Info   :  SEMIDEAD] [WaveSpawner] Starting spawn — wave 2, 10 enemies.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Valuable Thrower at (0.00, 0.00, -5.00) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Valuable Thrower initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Valuable Thrower registered (fast=True). Wave total: 1
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Elsa at (21.04, 0.00, 26.70) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa registered (fast=False). Wave total: 2
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Spinny at (45.00, 0.00, 17.50) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Spinny initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Spinny registered (fast=True). Wave total: 3
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Tick at (44.91, 0.00, 28.57) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Tick initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Tick registered (fast=False). Wave total: 4
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Duck at (8.50, 0.00, 27.27) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Duck initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Duck registered (fast=False). Wave total: 5
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Hidden at (34.00, 0.00, 33.40) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Hidden initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Hidden registered (fast=True). Wave total: 6
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Duck at (0.00, 0.70, -21.77) (Y=0.702)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Duck initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Duck registered (fast=False). Wave total: 7
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Oogly at (-4.97, 0.00, 10.65) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Oogly initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Oogly registered (fast=True). Wave total: 8
+[Warning: Unity Log] Setting linear velocity of a kinematic body is not supported.
+[Warning: Unity Log] Setting angular velocity of a kinematic body is not supported.
+[Warning: Unity Log] Setting linear velocity of a kinematic body is not supported.
+[Warning: Unity Log] Setting angular velocity of a kinematic body is not supported.
+[Warning: Unity Log] Setting linear velocity of a kinematic body is not supported.
+[Warning: Unity Log] Setting angular velocity of a kinematic body is not supported.
+[Warning: Unity Log] Setting linear velocity of a kinematic body is not supported.
+[Warning: Unity Log] Setting angular velocity of a kinematic body is not supported.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Elsa at (30.00, 0.00, 27.50) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa registered (fast=False). Wave total: 9
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Elsa at (0.09, 0.00, 1.43) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa registered (fast=False). Wave total: 10
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Duck(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.87 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 9 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Duck(Clone)
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Duck(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.19 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 8 remaining.
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> RAMPAGE
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Duck(Clone)
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Elsa(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.25 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 7 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Elsa(Clone)
+[Info   :  SEMIDEAD] [WaveKillReward] +$50 SURPLUS (Enemy - Valuable Thrower(Clone), fast=True)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.58 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 6 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Valuable Thrower(Clone)
+[Error  : Unity Log] NullReferenceException: Object reference not set to an instance of an object
+Stack trace:
+EnemyElsaAnim.SFXTransformStinger () (at <0e265e5a13ab4487b22e069c830875c3>:0)
+
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> SUICIDE
+[Info   :  SEMIDEAD] [AnnouncerSystem] Suicide — tubaplayer221.
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> LONE SURVIVOR!
+[Info   :  SEMIDEAD] [ReviveSystem] tubaplayer221 down — 30s pickup window open.
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Tick(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.68 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 5 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Tick(Clone)
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> SUICIDE
+[Info   :  SEMIDEAD] [AnnouncerSystem] Suicide — vastalord01.
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> GAME OVER, MAN! GAME OVER!
+[Info   :  SEMIDEAD] [ReviveSystem] vastalord01 down — 30s pickup window open.

@@ -1,0 +1,261 @@
+[Message:   BepInEx] BepInEx 5.4.23.5 - REPO (2/8/2026 3:14:38 AM)
+[Info   :   BepInEx] Running under Unity v2022.3.67.7073210
+[Info   :   BepInEx] CLR runtime version: 4.0.30319.42000
+[Info   :   BepInEx] Supports SRE: True
+[Info   :   BepInEx] System platform: Bits64, Windows
+[Message:   BepInEx] Preloader started
+[Info   :   BepInEx] Loaded 1 patcher method from [BepInEx.Preloader 5.4.23.5]
+[Info   :   BepInEx] 1 patcher plugin loaded
+[Info   :   BepInEx] Patching [UnityEngine.CoreModule] with [BepInEx.Chainloader]
+[Message:   BepInEx] Preloader finished
+[Message:   BepInEx] Chainloader ready
+[Message:   BepInEx] Chainloader started
+[Info   :   BepInEx] 8 plugins to load
+[Info   :   BepInEx] Loading [SEMIDEAD 1.0]
+[Info   :  SEMIDEAD] Jacob.SEMIDEAD v1.0 has loaded!
+[Info   :   BepInEx] Loading [RoboUnion 0.5]
+[Info   : RoboUnion] Linkoid.Repo.RoboUnion v0.5 has loaded!
+[Info   :   BepInEx] Loading [Better Team Upgrades 2.2.0]
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Shared Upgrades patch enabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join Player Upgrade Sync patch enabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Better Team Upgrades mod has been activated
+[Info   :   BepInEx] Loading [Menu Lib 2.5.1]
+[Info   :   BepInEx] Loading [REPOConfig 1.2.3]
+[Info   :   BepInEx] Loading [ReturnToLobby 1.0.2]
+[Info   :ReturnToLobby] OrigamiCoder.ReturnToLobby v1.0.2 has loaded!
+[Info   :   BepInEx] Loading [Shop Items spawn in Level 1.7.20]
+[Info   :Shop Items spawn in Level] Plugin REPO_Shop_Items_in_Level is loaded!
+[Info   :Shop Items spawn in Level] Harmony patches applied!
+[Info   :   BepInEx] Loading [REPOLib 3.0.4]
+[Info   :   REPOLib] REPOLib has awoken!
+[Info   :   REPOLib] Loading bundle at C:\Users\jacob\AppData\Roaming\com.kesomannen.gale\repo\profiles\Default\BepInEx\plugins\OrigamiCoder-ReturnToLobby\ReturnToLobby.repobundle...
+[Message:   BepInEx] Chainloader startup complete
+[Info   : Unity Log] Odin Serializer ArchitectureInfo initialization with defaults (all unaligned read/writes disabled).
+[Info   : Unity Log] Odin Serializer detected whitelisted runtime platform WindowsPlayer and memory read test succeeded; enabling all unaligned memory read/writes.
+[Info   :   REPOLib] Adding levels.
+[Info   :   REPOLib] Adding valuables to valuable presets.
+[Info   :   REPOLib] Adding enemies.
+[Info   : Unity Log] VERSION: v0.3.2
+Setting breakpad minidump AppID = 3241660
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198092558706 [API loaded no]
+[Info   : Unity Log] STEAM ID: 76561198092558706
+[Info   : RoboUnion] Creating PhotonWatchdog
+[Info   :   REPOLib] Adding items.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Auto-discovered 13 vanilla upgrade keys and 0 modded upgrade keys.
+[Info   :   REPOLib] Adding commands.
+[Info   : Unity Log] Commands Loaded: 5
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   :   REPOLib] Adding level ambiences.
+[Info   :   REPOLib] Finished loading bundles.
+[Info   : Unity Log] Leave Photon
+[Info   : Unity Log] Steam: Leaving lobby...
+[Info   : Unity Log] Cancelling Steam Auth Ticket...
+[Info   : Unity Log] Leave to Main Menu
+[Info   :   REPOLib] Adding enemies.
+[Info   :Shop Items spawn in Level] Initializing disallowed items list
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Disconnected from server for reason DisconnectByClientLogic
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Photon - Set Region
+[Info   : Unity Log] Photon - Set Version
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] Disconnected from server for reason DisconnectByClientLogic
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Photon - Set Region
+[Info   : Unity Log] Photon - Set Version
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] Disconnected from server for reason DisconnectByClientLogic
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Disconnected from server for reason DisconnectByClientLogic
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Photon - Set Region
+[Info   : Unity Log] Photon - Set Version
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] Disconnected from server for reason DisconnectByClientLogic
+[Info   :   REPOLib] Adding items.
+[Info   : Unity Log] Changed level to: Level - Lobby Menu
+[Info   :  SEMIDEAD] [RunManagerPatch] ChangeLevel_Postfix fired.
+[Info   :  SEMIDEAD] [RunManagerPatch] Non-gameplay level — skipping init.
+[Info   : Unity Log] Photon - Set Region
+[Info   : Unity Log] Photon - Set Version
+[Info   : Unity Log] Photon - Set AppId
+[Info   : Unity Log] PunVoiceClientLogic Awake
+[Info   : Unity Log] Connect random.
+[Info   : Unity Log] Sending Steam Auth Ticket...
+[Info   : Unity Log] Getting Steam Auth Ticket...
+[Info   : Unity Log] Connected to Master Server
+[Info   : Unity Log] I am creating a custom open lobby named: [SEMIDEAD]21+MICS[MOD TEST]
+[Info   : Unity Log] Created room successfully 5671e3ae-79be-4bf8-a8bf-14d548f94a37 usw
+[Info   : Unity Log] Joined room: 5671e3ae-79be-4bf8-a8bf-14d548f94a37 usw
+[Info   : Unity Log] Created Open Room.
+[Info   : Unity Log] Game Mode: Multiplayer
+[Info   : Unity Log] NetworkConnect destroyed.
+[Info   :   REPOLib] Adding enemies.
+[Info   : Unity Log] Steam: Hosting lobby...
+[Info   : Unity Log] [2026-04-01T03:34:59] [Info] [LOGGER] [VoiceLogger] Disabling VoiceLogger duplicates at the scene root.
+[Warning: Unity Log] [2026-04-01T03:34:59] [Warning] [PhotonVoiceView] [Voice(Clone)] PhotonVoiceView.RecorderInUse.TransmitEnabled is false, don't forget to set it to true to enable transmission.
+[Info   : Unity Log] Steam: Lobby created with ID: 109775244759760453
+[Info   : Unity Log] Steam: Lobby entered with ID: 109775244759760453
+[Info   : Unity Log] Steam: Region:
+[Info   : Unity Log] Created open lobby with ID: 109775244759760453
+[Info   : Unity Log] Steam: Setting lobby data...
+[Info   : Unity Log] Steam: Unlocking lobby...
+[Info   : Unity Log] Calling OpJoinOrCreateRoom for room name '5671e3ae-79be-4bf8-a8bf-14d548f94a37_voice_' region usw.
+[Warning: Unity Log] [2026-04-01T03:35:03] [Warning] [PunVoiceClient] [PunVoiceClient(Clone)] [PV] Frame event for voice #1 of not inited player 1
+[Info   : Unity Log] Steam: Locking lobby...
+[Info   : Unity Log] Changed level to: Level - Arctic
+[Info   : Unity Log] Deleted 2/2 files and directories for 'REPO_SAVE_2026_03_31_20_34_58'
+[Info   :  SEMIDEAD] [RunManagerPatch] ChangeLevel_Postfix fired.
+[Info   :  SEMIDEAD] [RunManagerPatch] WaveHUD null — recreating.
+[Info   :  SEMIDEAD] [WaveHUD] Initialised.
+[Info   :  SEMIDEAD] [RunManagerPatch] WaveManager null — recreating.
+[Info   :  SEMIDEAD] [WaveManager] Awake — instance initialised, DontDestroyOnLoad set.
+[Info   :  SEMIDEAD] [WaveManager] Level loaded — 15s grace period started.
+[Info   :  SEMIDEAD] [RunManagerPatch] WaveSpawner null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] PowerUpManager null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] StartingPistol null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] MysteryBox null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] MonkeyBomb null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] WallBuy null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] ReviveSystem null — recreating.
+[Info   :  SEMIDEAD] [RunManagerPatch] CharacterSystem null — recreating.
+[Info   :  SEMIDEAD] [CharacterSystem] tubaplayer221 → Takeo
+[Info   :  SEMIDEAD] [RunManagerPatch] AnnouncerSystem null — recreating.
+[Info   :  SEMIDEAD] [WaveManager] Start — Update loop active.
+[Info   :  SEMIDEAD] [WaveManager] Jingle loaded from embedded resource.
+[Info   :   REPOLib] Adding enemies.
+[Info   :  SEMIDEAD] [MysteryBox] LevelPointsGetAll returned 18 point(s) (16 non-truck) after 2.5s.
+[Warning:  SEMIDEAD] [MysteryBox] NavMesh snap failed at (-24.98, 0.00, 12.19) — using raw LevelPoint Y.
+[Info   :  SEMIDEAD] [MysteryBox] Synced box position to room properties.
+[Info   :  SEMIDEAD] [MysteryBox] Box placed at (-24.98, 0.00, 12.19).
+[Info   :  SEMIDEAD] [WallBuy] LevelPoints: 18 total, 16 non-truck (after 2.5s).
+[Info   :  SEMIDEAD] [WallBuy] MysteryBox occupied slot at (-24.98, 0.00, 12.19).
+[Info   :  SEMIDEAD] [WallBuy] Candidate 1: pos=(-24.57, 0.00, 1.11) navHit=False tooClose=False
+[Info   :  SEMIDEAD] [WallBuy] Station 1: Photon Blaster at (-24.57, 0.00, 1.11)
+[Info   :  SEMIDEAD] [WallBuy] Candidate 2: pos=(-25.28, 0.00, 28.31) navHit=False tooClose=False
+[Info   :  SEMIDEAD] [WallBuy] Station 2: Shotgun at (-25.28, 0.00, 28.31)
+[Info   :  SEMIDEAD] [WallBuy] Candidate 3: pos=(-35.17, 0.00, 11.63) navHit=False tooClose=False
+[Info   :  SEMIDEAD] [WallBuy] Station 3: Pulse Pistol at (-35.17, 0.00, 11.63)
+[Info   :  SEMIDEAD] [WallBuy] 3 station(s) placed (tried 3 candidate(s)).
+[Info   :  SEMIDEAD] [WallBuy] Synced 3 station(s) to room properties.
+[Info   :  SEMIDEAD] [MonkeyBomb] Spawning monkey 1/1 at (1.66, 1.43, -13.93).
+[Info   :  SEMIDEAD] [MonkeyBomb] Spawned 1 Toy Monkey(s).
+[Info   :  SEMIDEAD] [StartingPistol] ITEMS — Guns:
+  "Item Cart Cannon" (C.A.R.T. Cannon)
+  "Item Cart Laser" (C.A.R.T. Laser)
+  "Item Gun Handgun" (Gun)
+  "Item Gun Laser" (Photon Blaster)
+  "Item Gun Shockwave" (Pulse Pistol)
+  "Item Gun Shotgun" (Shotgun)
+  "Item Gun Stun" (Boltzap)
+  "Item Gun Tranq" (Tranq Gun)
+Melee:
+  "Item Melee Baseball Bat" (Baseball Bat)
+  "Item Melee Frying Pan" (Frying Pan)
+  "Item Melee Inflatable Hammer" (Inflatable Hammer)
+  "Item Melee Sledge Hammer" (Sledge Hammer)
+  "Item Melee Stun Baton" (Prodzap)
+  "Item Melee Sword" (Sword)
+
+[Info   :  SEMIDEAD] [StartingPistol] Round 1: injected 4 item(s) for 1 player(s).
+[Info   :  SEMIDEAD] [MonkeyBomb] ToyMonkeyTrap.Start() patch — isMaster=True isMonkeyBomb=True alreadySetup=True
+[Info   :  SEMIDEAD] [MonkeyBomb] ItemAttributes.Start() — safe defaults applied.
+[Info   :  SEMIDEAD] [MonkeyBomb] Boombox music source ready.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Player tubaplayer221 (76561198092558706) is ready. Starting sync...
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Skipping playerUpgradeMapPlayerCount because config toggle 'Vanilla Upgrade Settings:UpgradeMapPlayerCount' is disabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Sync complete for tubaplayer221.
+[Info   :Shop Items spawn in Level] Found 160 potential volumes to spawn items in
+[Info   :Shop Items spawn in Level] Upgrade item spawn chance: 4.08% on 81 tiny volumes
+[Info   :Shop Items spawn in Level] Drone item spawn chance: 3.8% on 32 small volumes
+[Info   :Shop Items spawn in Level] Selecting Item Upgrade Player Crouch Rest at a chance of 10.00% compared to others of type item_upgrade (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Upgrade Death Head Battery at a chance of 10.00% compared to others of type item_upgrade (equal chance)
+[Info   :Shop Items spawn in Level] Selecting Item Upgrade Player Energy at a chance of 10.00% compared to others of type item_upgrade (equal chance)
+[Info   :Shop Items spawn in Level] Spawned 3 items in total
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Shockwave(Clone), instanceName="Item Gun Shockwave/1"
+[Info   :  SEMIDEAD] [WaveManager] ♪ Jingle ♪ — WAVE 1 BEGINS (6 monsters)
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> WAVE 1
+[Info   :  SEMIDEAD] [WaveSpawner] Starting spawn — wave 1, 6 enemies.
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Slow Mouth at (-30.00, 0.00, 42.50) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth registered (fast=False). Wave total: 1
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Slow Mouth at (5.26, 0.00, 12.67) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth registered (fast=False). Wave total: 2
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Elsa at (-30.00, 0.00, 28.21) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Elsa registered (fast=False). Wave total: 3
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Birthday Boy at (-30.00, 0.00, 22.50) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Birthday Boy initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Birthday Boy registered (fast=False). Wave total: 4
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Slow Mouth at (-0.17, 0.00, 2.19) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Slow Mouth registered (fast=False). Wave total: 5
+[Info   :  SEMIDEAD] [WaveSpawner] Spawning Enemy - Tricycle at (0.00, 0.00, 12.50) (Y=0.001)
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Tricycle initialized — will appear in ~2-5s.
+[Info   :  SEMIDEAD] [WaveSpawner] Enemy - Tricycle registered (fast=False). Wave total: 6
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Melee Sword(Clone), instanceName="Item Melee Sword/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Valuable Manor Toy Monkey(Clone), instanceName="MonkeyBomb"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Handgun(Clone), instanceName="Item Gun Handgun/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Cart Medium(Clone), instanceName="Item Cart Medium/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Valuable Arctic Fire Extinguisher(Clone), instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Handgun(Clone), instanceName="Item Gun Handgun/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Valuable Manor Toy Monkey(Clone), instanceName="MonkeyBomb"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Cart Medium(Clone), instanceName="Item Cart Medium/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Handgun(Clone), instanceName="Item Gun Handgun/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Cart Medium(Clone), instanceName="Item Cart Medium/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Arctic Door, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Hinge, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Hinge, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Hinge, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Hinge, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Cart Medium(Clone), instanceName="Item Cart Medium/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Valuable Arctic Usb stick(Clone), instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Arctic Door, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Shockwave(Clone), instanceName="Item Gun Shockwave/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Handgun(Clone), instanceName="Item Gun Handgun/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Melee Sword(Clone), instanceName="Item Melee Sword/1"
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> FIRST BLOOD
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Tricycle(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.88 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 5 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Tricycle(Clone)
+[Info   :Shop Items spawn in Level] Enemy Enemy - Tricycle(Clone) spawned a valuable!
+[Info   :Shop Items spawn in Level] Selecting Item Health Pack Medium at a chance of 28.57% compared to others of type healthPack (based on shop price)
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> DOUBLE KILL
+[Info   :  SEMIDEAD] [WaveKillReward] +$25 SURPLUS (Enemy - Slow Mouth(Clone), fast=False)
+[Info   :  SEMIDEAD] [PowerUpManager] Orb roll 0.64 > 0.1 — no drop.
+[Info   :  SEMIDEAD] [WaveSpawner] Wave enemy died — 4 remaining.
+[Info   :  SEMIDEAD] [EnemyHealthPatch] DeathImpulseRPC fallback fired for Enemy - Slow Mouth(Clone)
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Health Pack Medium(Clone), instanceName="Item Health Pack Medium/1"
+[Info   :  SEMIDEAD] [WallBuy] tubaplayer221 can't afford Photon Blaster ($50/$500).
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Shockwave(Clone), instanceName="Item Gun Shockwave/1"
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Gun Shockwave(Clone), instanceName="Item Gun Shockwave/1"
+[Info   :Shop Items spawn in Level] Enemy Enemy - Beamer(Clone) spawned a valuable!
+[Info   :Shop Items spawn in Level] Health pack spawn roll failed (chance: 14.43%)
+[Info   :  SEMIDEAD] [WallBuy] tubaplayer221 can't afford Photon Blaster ($50/$500).
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Rigidbody, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Rigidbody, instanceName=""
+[Info   :  SEMIDEAD] [WaveManager] Wave 1 timed out — rushing enemies at players.
+[Info   :  SEMIDEAD] [WaveSpawner] RushEnemiesAtPlayers — forcing all wave enemies toward players.
+[Info   :  SEMIDEAD] [WaveSpawner] Rushed 4/4 enemies toward (-36.76, 0.00, 8.79).
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Item Melee Sword(Clone), instanceName="Item Melee Sword/1"
+[Info   :  SEMIDEAD] [WallBuy] tubaplayer221 can't afford RAY GUN ($50/$500).
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Rigidbody, instanceName=""
+[Info   :  SEMIDEAD] [CharacterSystem] OnItemGrabbed: player=tubaplayer221, item=Rigidbody, instanceName=""
+[Info   :  SEMIDEAD] [AnnouncerSystem] >> GAME OVER, MAN! GAME OVER!
+[Info   :  SEMIDEAD] [ReviveSystem] tubaplayer221 down — 30s pickup window open.
+[Info   : Unity Log] Changed level to: Level - Arena
+[Warning: Unity Log] Save folder not found: C:/Users/jacob/AppData/LocalLow/semiwork/REPO/saves/REPO_SAVE_2026_03_31_20_34_58
+[Info   :  SEMIDEAD] [RunManagerPatch] ChangeLevel_Postfix fired.
+[Info   :  SEMIDEAD] [RunManagerPatch] Non-gameplay level — skipping init.
+[Info   :   REPOLib] Adding enemies.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Player tubaplayer221 (76561198092558706) is ready. Starting sync...
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Skipping playerUpgradeMapPlayerCount because config toggle 'Vanilla Upgrade Settings:UpgradeMapPlayerCount' is disabled.
+[Info   :MrBytesized.REPO.BetterTeamUpgrades] Late Join: Sync complete for tubaplayer221.

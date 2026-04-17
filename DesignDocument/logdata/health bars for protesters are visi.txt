@@ -1,0 +1,5 @@
+health bars for protesters are visible. health bars for regime are not. i should be able to select the enemys, one at a time, just to see some stats, not to control or see everything. im talking health and upgrades maybe
+
+zoom needs to be much closer. i want to see these models up close
+
+w

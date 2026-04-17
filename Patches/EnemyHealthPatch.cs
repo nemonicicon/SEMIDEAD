@@ -1,4 +1,5 @@
 using HarmonyLib;
+using UnityEngine;
 
 namespace SEMIDEAD.Patches;
 
@@ -35,8 +36,9 @@ static class EnemyHealthPatch
         // Fire kill quote and multi-kill announcer at the moment the kill is confirmed.
         // DeathRPC fires before the freeze delay, giving accurate timing for multi-kill chains.
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
-        CharacterSystem.Instance?.OnEnemyKilled(__instance.transform.position);
-        AnnouncerSystem.Instance?.OnEnemyKilled();
+        Vector3 deathPos = __instance.transform.position;
+        CharacterSystem.Instance?.OnEnemyKilled(deathPos);
+        AnnouncerSystem.Instance?.OnEnemyKilled(deathPos);
     }
 
     [HarmonyPostfix, HarmonyPatch(nameof(EnemyHealth.DeathImpulseRPC))]

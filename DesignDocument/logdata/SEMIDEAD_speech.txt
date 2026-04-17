@@ -1,0 +1,987 @@
+"tank" Dempsey
+
+"Now that's what I call blowing chunks!"
+— After getting a headshot.
+"Enough already!"
+— After killing a zombie that recently hit him
+"Bring it, freak bags!"
+— Unknown, possibly random while killing zombies
+"They're swarming! Look out!"
+— Unknown, possibly random while fighting a large group of zombies
+"Hi I'm Dempsey, and you are... DEAD!"
+— After killing a zombie
+"K.I.A., Maggot sack!"
+— After killing a zombie
+"Oorah! They're droppin' like bad habits!"
+— After killing multiple zombies
+"Don't you pus bags get the idea yet?"
+— After killing multiple zombies.
+"You meatheads too stupid to quit?"
+— After killing a zombie
+"Aww, look, I just saved everyone's knees, I'm a hero!"
+— After killing a crawler
+"I told you, I wasn't on the menu!"
+— After killing a zombie that hit him
+"Oorah, maggot sacks!"
+— After killing multiple zombies
+"Hey, we need a clean up in aisle 4!"
+— After killing multiple zombies
+"Anyone want some bad cuts?"
+— After killing multiple zombies
+"Chew on that, maggot sacks!"
+— After killing multiple zombies
+"Hell yeah, that was sweet!"
+— After killing multiple zombies
+"Hey, someone needs to clean up those freak bits."
+— After killing multiple zombies
+"EAT IT, FREAK BAGS!"
+— After killing multiple zombies
+"HOLY SHIT! Just how much bad-ass is there around here anyway?"
+— Said after getting zombies with the Monkey Bomb.
+"Just what we need, a cluttered battlefield."
+— After killing many zombies
+"OOH FUCKIN' RAH, MOTHERFUCKERS!"
+— After killing many zombies
+"It's raining lead on you, pus-buckets!"
+— After killing many zombies.
+"Die, maggot whores!"
+— After killing many zombies.
+"You don't mess with the marine."
+— After killing multiple zombies.
+"Suck it!"
+— After killing many zombies
+"This just in, Dempsey is a fuckin' bad ass!"
+— After killing multiple zombies
+"I'm surrounded! Bring it mother-fuckers!"
+— After being surrounded by zombies
+"That was SWEET!"
+— After a group of zombies get blown up
+"Smells like Zom-B-Q!"
+— After lighting a group of zombies on fire
+"Can't touch this!"
+— After knifing a zombie. (A reference to M.C. Hammer's U Can't Touch This)
+"Eat it, gut bags!"
+— After knifing a zombie
+"Go eat someone else, freakbag!"
+— After killing a zombie that hit him.
+"Slice and Dice baby!"
+— After knifing a zombie with the Bowie Knife
+"OWNED!"
+— After knifing a zombie or getting a headshot at close range
+"Hey! Someone needs to clean up those freak bits!"
+— After getting a headshot, or blowing up many zombies
+"I don't think it was using that anyway."
+— After getting a headshot
+"Yeah! I had my eyes closed that time!"
+— After getting a headshot
+"Freak-meat-bag-sackers!!!"
+— After getting a kill streak
+"I'll swim in your skin, maggot-whores!"
+— After getting a knife streak
+"Oorah, Oorah, Oorah, OORAH!"
+— After getting a knife streak
+"Awesome! Bzzzzt!"
+— After getting multiple kills from the Wunderwaffe DG-2
+"Everything burns!"
+— After burning zombies with the M2 Flamethrower. Possibly a reference to the film "The Dark Knight". This line was said by the Joker.
+"Shock and Awe!"
+— After killing many zombies with the Wunderwaffe DG-3 JZ. 
+"I'm gonna miss that little guy."
+— After a Monkey Bomb explodes
+"Oorah, Monkey bones!"
+— After a Monkey Bomb explodes
+"Oorah, Slackjaw sauce comin' up!"
+— After getting a automatic weapon
+"See that little guy light 'em up!"
+— After a Monkey Bomb explodes
+"Bullets to the brain. Oorah."
+— After getting a headshot
+"Go join your legs."
+— said after killing a crawler.
+"Oorah! Don't fuck with a marine!"
+— said after getting a knife kill.
+"What are the Krauts gonna think of next?!"
+— After getting the Monkey Bomb
+"World's best weapon, world's finest soldier."
+— After getting a powerful weapon
+"Aww...isn't that so fucking cute?"
+— After getting the Monkey Bomb
+"I never win anything, except for WAR!"
+— After not getting anything good from the box.
+"Hey look, it's Richtofen's brother."
+— After getting the Monkey Bomb
+"Monkey see, monkey go blow some shit up."
+— After getting the Monkey Bomb
+"Time to gut these brainbags!"
+— After getting the Bowie Knife
+"Time to slice and dice!"
+— After getting the Bowie Knife
+"Oh yeah, now it's gonna get personal!"
+— After getting the Bowie Knife
+"L'eggo my Wonder Waffle!"
+— After getting the Wunderwaffe DG-2. A reference to the company Kellogg's company slogan, "L'eggo My Eggo".
+"Time to shock some meatbag ass!"
+— After getting the Wunderwaffe DG-2
+"Blowin' off limbs is one of my specialties!"
+— After getting a shotgun
+"Nothing says "I love you" quite like a shotgun."
+— After getting a shotgun
+"Get the marshmallows, I'll light the fire!"
+— After getting the M2 Flamethrower
+"Looks like Santa got my letter."
+— After getting the Ray Gun
+"Where's this thing keep 160 rounds?"
+— After getting the Ray Gun
+"You won't be giggling when I get through with you!"
+— After getting the Teddy Bear out of the Mystery Box
+"A big toy for a big boy!"
+— After getting a machine gun
+"*Crazed Laughter*"
+— After getting a heavy weapon out of the Mystery Box
+"I'm gonna rip shit up!"
+— After getting the MG42
+" Gun's gettin' hungry, time to feed."
+— After being low on ammunition
+"Gun juice is runnin' low."
+— After being low on ammunition
+"I'm gonna need to get some ammo soon."
+— After being low on ammunition
+"Gotta round up some rounds..."
+— After being low on ammunition
+"Shit. Running low on ammo!"
+— After being low on ammunition
+"I can't do my job if I ain't packin' heat!"
+— After having no ammunition
+"Nuthin' sucks more than not being able to blow shit up!"
+— After having no ammunition
+"SHIT! Outta gun juice"
+— After running out of ammunition.
+"FUCK! Can't blow shit up without ammo!"
+— After running out of ammunition.
+"You laughing at me? Not wise."
+— After getting the Teddy Bear
+"They're going down. One. Limb. At a time."
+— After getting the Shotgun
+"Rat-a-tat-tat meat sacks!"
+— After getting a heavy machine gun.
+"Boiling zombie brains coming right up!"
+— After getting the flamethrower.
+"You undead punks feeling lucky?"
+— After getting the .357 Magnum. A reference to Clint Eastwood in Dirty Harry
+"Now I've got somethin' fun to bring to the party!"
+— After getting an MG from the Mystery Box
+"If I had a good weapon I'd blow this box up."
+— After receiving the Molotov Cocktail from the Mystery Box
+"JUUUIIICE!"
+— After getting a Max Ammo power-up
+"Much appreciated!"
+— After getting a Max Ammo power-up
+"Oh yeah! bring it, motherfuckers!"
+— After getting a Max Ammo power-up
+"Line 'em up!"
+— After getting a Double Points power-up
+"Rack 'em up!"
+— After getting a Double Points power-up
+"Oorah! (Demonic tone)"
+— After getting the Carpenter power-up
+"Oorah, devil man!"
+— After getting the Carpenter power-up
+"OH YEAH!"
+— After getting the Nuke power-up
+"See ya, maggot bags!"
+— After getting the Nuke power-up
+"That just never gets old."
+— After getiing the Nuke power-up
+"Dempsey's butcher shop is open for business!"
+— After getting the Insta-Kill power-up
+"I wonder how we can get to that..."
+— After approaching the unopened Pack-a-Punch Machine
+"Mmm, Pack-a-Punch. Must be named after me!"
+— After approaching the Pack-a-Punch Machine
+"Pack-a-punch. Reminds me of a sweet chick I knew once! Heh heh."
+— After approaching the Pack-a-Punch Machine
+"This machine belongs in AWESOMETOWN!"
+— After approaching the Pack-a-Punch Machine
+"This German shit is slower than a freakbag tied to a tree!"
+— After using the Pack-a-Punch Machine
+"*singing* Reach for Jugg-er-nog toniiight. *stops singing* Yeah, I can totally, you know, get into that chick."
+— When upgrading a weapon
+"I'm makin' some freak-meat stew! Who wants some?"
+— After taking an upgraded weapon in the Pack-a-Punch Machine
+"That's what I need... more fucking firepower!"
+— After taking an upgraded weapon in the Pack-a-Punch Machine
+"Oorah Pack a Punch! Where's that dead meat?"
+— After taking an upgraded weapon in the Pack-a-Punch Machine
+"Gotta link up this terra..er, tele... bah... machine."
+— After approaching a deactivated Teleporter
+"Where's that mainframe again?"
+— After approaching a deactivated Teleporter
+"Anybody ever hear of a "Die Glocke"?"
+— After approaching a Teleporter
+"I think Richtofen knows more about what's going on than it seems..."
+— After approaching a Teleporter
+"Aah. I'm always into Jugg-a-nog [sic]!"
+— After getting Juggernog
+"Livin' the fast life, that's the way I roll. "
+— After getting Speed Cola
+"Yeah, partner. I'm thirsty!"
+— After drinking Double Tap Root Beer
+"Blagh! I fucking HATE fish! (Clean version: removes 'fucking')"
+— After drinking the Quick Revive Soda
+"Aah. I'm always into Jugg-a-nog [sic]!"
+— After getting Juggernog
+"Livin' the fast life, that's the way I roll. "
+— After getting Speed Cola
+"Yeah, partner. I'm thirsty!"
+— After drinking Double Tap Root Beer
+"Blagh! I fucking HATE fish! (Clean version: removes 'fucking')"
+— After drinking the Quick Revive Soda
+"Couldn't live without me, huh?"
+— After being revived
+"I must have slipped, oorah.'"
+— After being revived
+"What the Hell were they looking for?"
+— When approaching a chalkboard
+"Hey Richtofen, what does all this shit mean?"
+— After approaching a chalkboard.
+"Let's get this done..."
+— Unknown, possibly when starting a game
+"Imagine that! We need to turn the power on; how original!"
+— Starting a game
+"Ah, shit, here come the dogs!"
+— Before a Hellhound round starts
+"Shouldn't you guys be on a leash?"
+— Before a Hellhound round starts
+"Man's best friend? I don't think so!"
+— Before a Hellhound round starts
+"Freak dogs! BRING IT ON!"
+— Before a Hellhound round starts
+"When I find your master, I'm kicking his ass!"
+— Before a Hellhound round starts
+"*sigh* These Wonder-Waffles [sic], Ray Guns, teleporters, Die Glockes, uhh, whatever, let's just go kill some freak bags."
+— Randomly
+"You're goin' to the pound, dog bag!"
+— After killing a hellhound.
+"Richtofen, stop humping the monkey toy!"
+— When Richtofen is about to throw the monkey bomb
+"Who's this 'Doctor Maxis' I keep hearing about?"
+— Sometimes said when activating the radio in the spawn area
+
+Nikolai Belinski
+
+"Even drunk, I'm too strong for you."
+— Randomly while killing a zombie
+"So much death, so quickly, like Eastern Front all over again!"
+— After killing a large number of zombies
+"FUCK YOU!"
+— Randomly while killing a zombie
+"Only man and wife should be so close!"
+— After killing a zombie that has hit him
+"Your touch is cold, mine is deadly!"
+— After knifing a zombie that has hit him.
+"And the limbs go flying! Hows that for an ARM-y?! Get it? With the arms? Fuck you."
+— After dismembering a zombie's arm
+"Look, I just made a new pet. I'll take it for a walk for about 5 minutes while the rest of you dick around."
+— After making a crawling zombie
+"His head's at crotch height Dempsey, don't get excited."
+— After making a crawler
+"Now we're BOTH legless!"
+— After blowing a zombie's legs off.
+"Die, Hell-pig!"
+— After knifing a zombie
+"Good, that fucking song was driving me nuts!"
+— After a Monkey Bomb explodes
+"Ha Ha, you just got fucked by a monkey!!"
+— After a Monkey Bomb explodes
+"*Grunt*...Did I just do that?"
+— After getting a headshot
+"I was on fire once, it was not fun."
+— Killing zombies with the M2 Flamethrower
+"Nikolai likes his bacon crispy."
+— Killing zombies with the M2 Flamethrower
+"You fall like drunkards on way home."
+— After killing a large amount of zombies
+"This is a happy massacre!"
+— After killing a large amount of zombies
+"Those should be mine, you Japanese pig!"
+— After witnessing Takeo get the monkey bomb.
+"Ah, the same weapon I used to kill my third wife! She was bitch!"
+— After getting a M1897 Trench Gun or Double-Barreled shotgun
+"Death is inevitable, like hangovers, I know."
+— When getting a shotgun
+"Even I can hit something with this!"
+— After getting the FG-42
+"Same weapon I used to kill my second wife. It was accident!... She talked too much."
+— After getting the PTRS-41 or the PPSh-41
+"I had more powerful weapons on my pig farm!"
+— After getting a Molotov Cocktail
+"This will hurt like syphilis. Believe me, I know."
+— After getting an automatic weapon
+"That's a big fucking knife!"
+— After getting the Bowie Knife
+"Someone is not sharing their ammo..."
+— After running low on/out of ammunition
+"Don't make me fight with broken vodka bottle!"
+— After running low on/out of ammunition
+"Soviet war machine grind to halt without ammo!"
+— After running low on/out of ammunition
+"I have vodka, BUT NO FUCKING AMMO!"
+— After running low on/out of ammunition
+"I feel empty... SHIT! I AM EMPTY!"
+— After running out of ammo
+"In Russia, I kill bears TEN TIMES your size!"
+— After getting a teddy bear
+"Ha ha, you make funny joke..."
+— After getting a teddy bear
+"Cold, hard, Russian steel!"
+— After receiving the Bowie Knife.
+"Where is ammo? Nikolai is in deep shit!"
+— When out of ammunition
+"My first wife was more dangerous than this!"
+— After obtaining a low power gun from the Mystery Box
+"This... Soviet... is... complete!"
+— After Pack-a-Punching a Wonder Weapon.
+"I'm boarding all the windows. Don't help or anything!"
+— After getting a Carpenter power-up
+"I used to be a carpenter, you know."
+— After getting a Carpenter power-up
+"I'll drink to that! Hell, I'll drink to anything!"
+— After getting Double Points.
+"I've got the hammer. Go find me a sickle."
+— After getting a Carpenter power-up (A reference to the Soviet insignia)
+"Maybe I will share these points with State!"
+— After getting a Double-Points power-up
+"Points?! I'm trying to stay alive!"
+— After getting a Double-Points power-up on later rounds
+"Soviet supply routes, they're not this good."
+— After getting the Max Ammo power-up.
+"It's a distillery!...Oh, no, it's just a teleporter."
+— After approaching a deactivated Teleporter
+"So now I have to run all the way back to the mainframe to link it... so much fucking running!"
+— After activating a Teleporter
+"If this were Russian, there wouldn't be so much running around. You would press ONE button, and it would work."
+— After linking a Teleporter to the mainframe
+"Ugh, I feel like I will throw up..."
+— After using a Teleporter
+"Balls, check. Vodka, check. Okay I'm good."
+— After using a Teleporter
+"Ugh, that vodka was terrible. Oh wait, I teleported!"
+— After using a Teleporter
+"Why didn't they spend their money on a Vodka Transfer machine?"
+— After linking a Teleporter to the mainframe
+"Hello? Can someone open this door so I can get to the cool gadgets?"
+— After approaching an unopened Pack-a-Punch Machine
+"It looks like it pollishes huge balls, so you bastards would have no use for it! Haha! Because you have no balls!"
+— After approaching the Pack-a-Punch Machine
+"Pack-a-punch? Oh my God, I think it makes vodka!"
+— After approaching the Pack-a-Punch Machine
+"Wow... I gotta take this back for the boss to see."
+— After approaching the Pack-a-Punch Machine
+"Urgh! This is worst vodka I ever taste...great!"
+— After getting Juggernog
+"Maybe with speed, I have time for drink between kills, eh?"
+— After drinking Speed Cola
+"Do I really want to help anyone else?"
+— After buying Quick Revive
+"Thank you, comrade cowboy."
+— After buying Double Tap Root Beer
+"Use it wisely Tank. Use it wisely."
+— After "Tank" Dempsey gets the Monkey Bomb
+"That a new pet, American?"
+— When Tank Dempsey gets the Monkey Bomb or when he makes a crawler
+"How come you always get the good guns, and I get the Colt?"
+— After witnessing Tank Dempsey getting a good gun
+"You're almost as brave as me, Dempsey."
+— After witnessing Tank Dempsey running through a group of zombies
+"You're killing them, I'm killing them. Even fucking Doc is killing them! Takeo?"
+— Said randomly
+"Is that the warrior's way, Takeo? All talk and no do?"
+— When Takeo is surrounded
+"Did someone make joke?"
+— After witnessing someone get the Teddy Bear
+"I share your disgust for our stumpy little nemesises. Nemes-ises... uh, enemies."
+— After seeing Dempsey make a crawler
+"Perhaps you are of use."
+— After getting revived
+"Looks like Takeo shit his pants again, heh heh."
+— Nikolai after Takeo remarks about killing a lot of zombies.
+"Oorah! The Marines Dempsey!"
+— After Tank remarks about getting a large killstreak
+"Right here with you Tank!"
+— After Tank asks where everyone else is
+"You have no fear Dempsey. Like me!"
+— After Tank remarks about getting a large killstreak
+"I need a fucking perk. Let's go find the power ."
+— At the beginning of the game
+"No power! Just like home!"
+— At the beginning of a game
+"The air hangs heavy with stench of dog shit."
+— At the start of a hellround
+"I need more money first, why do we not share the points?"
+— After trying to buy something without enough points
+"What the hell are you doing here you creepy fucks?"
+— At the beginning of the game
+"I'm out of ammo! I'm going for a drink."
+— When out of ammo
+"You hurt me, I KILL you!"
+— After killing a Zombie that just hit him
+"Stay away from my Vodka!"
+— At the beginning of the Hellhound round
+"FUCK! They're between me and my vodka!"
+— After noticing a large group of zombies near him
+"Zombies! We gotta move!"
+— After being surrounded by zombies
+
+Takeo Masaki
+"I have drawn a line in the sand!"
+— Upon killing a zombie close to him.
+"Face me at your peril."
+— Upon killing a zombie close to him.
+"You bring about your own destruction!"
+— Upon killing a zombie close to him.
+"Die, like the animal you are!"
+— Upon killing a zombie close to him.
+"You should have slumbered in your grave!"
+— Upon killing a zombie close to him.
+"Now you sleep for eternity!"
+— Upon killing a zombie close to him.
+"Kneel before me!"
+— Upon killing a zombie close to him.
+"All your efforts lead to failure!"
+— Upon killing a zombie close to him.
+"You bring forth your destruction!"
+— Upon killing a zombie that hit him.
+"Most impressive..."
+— Upon killing a zombie with a headshot.
+"The power of my ancestors flows through my veins!"
+— Upon killing a zombie with a headshot.
+"Death comes quickly to you!"
+— Upon killing a zombie with a headshot.
+"Your deaths have come to an end, my undead enemy."
+— Upon killing a zombie with a headshot.
+"Your abomination has been wiped from the earth."
+— Upon killing a zombie with a headshot.
+"I just played a great position."
+— Upon killing a zombie with a headshot.
+"I am like a brain surgeon!"
+— Upon killing a zombie with a headshot.
+"It is time for your autopsy!"
+— Upon killing a zombie with a headshot.
+"No closer shall you come!"
+— Upon killing a zombie with a headshot.
+"An eye for an eye!"
+— Upon killing a zombie that hit him.
+"You dare touch me?"
+— Upon killing a zombie that hit him.
+"The worms will dine tonight!"
+— Upon killing a zombie that hit him.
+"You'll die for your disrespect!"
+— Upon killing a zombie that hit him.
+"The spirits of my ancestors are with me!"
+— Upon killing multiple zombies.
+"I cleanse the earth of your poison!"
+— Upon killing multiple zombies.
+"All must fall!"
+— Upon killing multiple zombies.
+"By my warriors hand, you die!"
+— Upon killing multiple zombies.
+"See the error of your ways."
+— Upon killing multiple zombies.
+"Your suffering is at an end!"
+— Upon killing multiple zombies.
+"Begone, hellspawn!"
+— Upon killing multiple zombies.
+"Your fate has been fulfilled!"
+— Upon killing multiple zombies.
+"I, am, WARRIOR!"
+— Upon killing multiple zombies.
+"Shi-ne!"
+— Upon killing a zombie with a knife. "Shi-ne" means "die" in Japanese.
+"I send you to hell one piece at a time!"
+— Upon killing a zombie with a knife.
+"Accept your death!"
+— Upon killing a zombie with a knife.
+"Advance and fall!"
+— Upon killing a zombie with a knife.
+"A just kill!"
+— Upon killing a zombie with a knife.
+"I scatter your remains across the land!"
+— Upon killing a zombie with an explosion.
+"Your limbs travel high into the air!"
+— Upon killing a zombie with an explosion.
+"I blow you away like a mighty wind!"
+— Upon killing a zombie with an explosion.
+"There is no purpose in your defiance!"
+— Upon killing a zombie with an explosion.
+"You live the futile life, but die the most entertaining death!"
+— Upon killing a zombie with an explosion.
+"They deserved their fate..."
+— Upon killing a zombie with a Monkey Bomb.
+"To kill tree, you must destroy forest."
+— Upon killing a zombie with a Monkey Bomb.
+"Destruction is the brother of destruction."
+— Upon killing a zombie with a Monkey Bomb.
+"Pain, in large numbers."
+— Upon killing a zombie with a Monkey Bomb.
+"I prefer them in smaller pieces."
+— Upon killing a zombie with a Monkey Bomb.
+"Monkey power!"
+— Upon killing a zombie with a Monkey Bomb.
+"An unnatural death, for an unnatural beast!"
+— Upon killing a zombie with the Ray Gun.
+"See what damage my weapon can do!"
+— Upon killing a zombie with the Ray Gun.
+"Your death life is over!"
+— Upon killing a zombie with the Ray Gun.
+"No more shall you feed on the living."
+— Upon killing a zombie with the Ray Gun.
+"I kill you! Ha ha!"
+— Upon killing a zombie with the Ray Gun.
+"You are joined in agony!"
+— Upon killing a zombie with the Wunderwaffe DG-2.
+"Feel the lightning surge through you!"
+— Upon killing a zombie with the Wunderwaffe DG-2.
+"Begone, hell-beast!"
+— Upon killing a zombie with the Wunderwaffe DG-2.
+"You have fought your last battle."
+— Upon killing a zombie with the Wunderwaffe DG-2.
+"No more shall you sour the earth with your presence."
+— Upon killing a zombie with the Wunderwaffe DG-2.
+"Flesh and bone become one with the air."
+— Upon killing a zombie with the M2 Flamethrower.
+"As ashes your future will be."
+— Upon killing a zombie with the M2 Flamethrower.
+"The fires of Hell consume you!"
+— Upon killing a zombie with the M2 Flamethrower.
+"Cinders and ashes you are!"
+— Upon killing a zombie with the M2 Flamethrower.
+"You live, only to die by my hand."
+— Upon killing a zombie with the M2 Flamethrower.
+"Slain!"
+— Upon killing a legless zombie.
+"I have finished you!"
+— Upon killing a legless zombie.
+"Accept your penalty!"
+— Upon killing a legless zombie.
+"Your miserable existence is over!"
+— Upon killing a legless zombie.
+"I end you!"
+— Upon killing a legless zombie.
+"You are a waste!"
+— After making a legless zombie.
+"They continue, even as stumps!"
+— After making a legless zombie.
+"How do they survive?"
+— After making a legless zombie.
+"Still coming!"
+— After making a legless zombie.
+"They linger, incomplete!"
+— After making a legless zombie.
+"They gather at my feet!"
+— After making a legless zombie.
+"Half a zombie, still as dangerous!"
+— After making a legless zombie.
+"They waddle on the floor!"
+— After making a legless zombie.
+"Why do they persist?"
+— After making a legless zombie.
+"I am ashamed for you!"
+— After making a legless zombie.
+"Your time on Earth is over!"
+— After killing a Hellhound.
+"I take pleasure in your deaths!"
+— After killing a Hellhound.
+"Return to the Hell from whence you came!"
+— After killing a Hellhound.
+"Your bark is worse than your bite!"
+— After killing a Hellhound.
+"No longer will you hunger for flesh!"
+— After killing a Hellhound.
+"My ammunition supply runs low!"
+— When low on ammo.
+"No bullets remain!"
+— When low on ammo.
+"No ammo! My situation grows worse!"
+— When low on ammo.
+"Daoh!"
+— When low on ammo.
+"I need ammunitions, quickly!"
+— When low on ammo.
+"My weapons are like Dempsey's head. Empty."
+— When out of ammo.
+"Without ammo, I cannot achieve victory."
+— When out of ammo.
+"The emptiness of my weapons displeases me."
+— When out of ammo.
+"No ammunitions, very sad."
+— When out of ammo.
+"I need ammunition!"
+— When out of ammo.
+"I'm out of ammo!"
+— When out of ammo.
+"I need ammo!"
+— When out of ammo.
+"Simply bad-ass, just like me."
+— After getting the .357 Magnum from Mystery Box
+"This will hold them back for a while! Ha ha ha!"
+— Planting Bouncing Betties
+"Do not mock me, Bear."
+— After getting the Teddy Bear from the Mystery Box
+"Ah, the little warrior."
+— After getting the Monkey Bomb
+"Even a monkey is smarter than Nikolai."
+— After getting the Monkey Bomb
+"Tickles..."
+— Rarely after getting damaged by the Wunderwaffe
+"Monkey, I choose you!"
+— Receiving a Monkey Bomb from the Mystery box. A reference to Pokemon.
+"Ohhh... Monkey Bomb!"
+— After receiving the Monkey Bomb
+"Monkey is image of Nikolai's wife! But prettier."
+— After a player receives a monkey bomb
+"The main ingredient... a Zombie!"
+— After getting the Bowie Knife
+"Don't drop limb, drop power up..."
+— After gibbing and killing a zombie without a power up dropping
+"The killing can continue!"
+— After receiving a max ammo power-up
+"We have a chance to grow rich!"
+— After receiving a Double Points power-up
+"A good carpenter leaves no wood to be carved!"
+— After using Carpenter
+"This weapon has honor!"
+— After receiving a weapon from the Pack-a-Punch machine.
+"Arigato."
+— After using a teleporter.
+"This will do very nicely... hehehe."
+— After receiving a weapon from the Pack-a-Punch machine.
+"I need what is in there!"
+— After approaching an unopened Pack-a-Punch machine
+"Speed is my friend!"
+— After drinking Speed Cola.
+"I welcome the chance to shoot faster."
+— After drinking Double Tap.
+"My strength grows!"
+— After drinking Juggernog.
+"This flavor brings smile to my face."
+— After drinking Quick Revive Soda.
+"Where is Red Army now, eh?"
+— Said when Nikolai gets surrounded
+"Richtofen, I will not desert you!"
+— After Richtofen is swarmed
+"Monkey knows Nikolai can't survive without him."
+— Said when Nikolai gets the Monkey Bomb
+"My ancestors will have to wait for my arrival!"
+— After being revived
+"I will not give up!"
+— After being surrounded by Zombies
+"Die you diseased dog!"
+— At the start of a Hellhound round
+"The spirits are toying with us."
+— At the start of a Hellhound round
+"The dogs hunger for the flesh... of us!"
+— At the start of a Hellhound round.
+"Hell's beasts approach!"
+— At the start of a Hellhound round.
+"A storm approaches..."
+— At the start of a Hellhound round.
+"I require more money."
+— After trying to buy something without enough points
+"I teach the animals, in the ways of death!"
+— Beginning of a Hellhound round
+
+
+Edward Richtofen
+
+
+"His head EXPLODED. SUCH JOY!"
+— After getting a headshot or blowing a zombie's head off with a grenade.
+"Do you know WHO I AM?!?!"
+— After killing a zombie
+"Excuse me, do you have the time? AHAHAHAHAHA!"
+— After killing a zombie
+"I love to bathe naked... in your blood!"
+— After killing a zombie
+"Rest in peace, my little undead friend."
+— After killing a zombie
+"Stumpy was rude to the doctor. Stumpy paid the price."
+— After killing a zombie
+"The Doctor prescribes you... PAIN!!"
+— After killing a zombie
+"Who's your daddy?"
+— After killing a zombie
+"You are my child. Bastard child, but child nonetheless."
+— After killing a zombie
+"Doctor recommends AMPUTATION!"
+— After gibbing a zombie
+"So many body parts! I am in HEAVEN!!"
+— After gibbing a zombie
+"Ed wants your head!"
+— After getting a headshot. Possible reference to Iron Maiden, a heavy metal band.
+"Now let's see you clap! Hahaha!"
+— After shooting off a zombie's arm
+"Take your medicine, Child"
+— After getting a headshot
+"You will not feed!"
+— Killing a group of zombies, or getting a headshot
+"This must be how Dempsey's mother must have felt when he was born!"
+— After being surrounded by zombies
+"Let us all have a sing-along for the corpses"
+— After a Monkey Bomb explodes
+"No more monkey sing-along for the cadavers."
+— After a Monkey Bomb explodes
+"Oh, my! It kills people! Brilliant!"
+— After a Monkey Bomb explodes
+"You cannot resist the power of the Wunderwaffe!"
+— After getting several kills with the Wunderwaffe
+"His head sends his apologies."
+— After getting a head shot.
+"Look at all the body parts. Someone get me a bag!"
+— After blowing up a group of zombies
+"KNEEL!"
+— After killing a zombie that had hit him
+"Ooh! This is much better than my Hitler Youth knife!"
+— After knifing a zombie (only on the Black Ops version)
+"Blood, gore, sinew, bones, organs, pulmonary systems!"
+— After knifing multiple zombies in a quick succession (only on the Black Ops version).
+"Oh good, I have an apple to peel. AN ADAMS APPLE!"
+— After purchasing the Bowie Knife
+"Oh, it feels so good in my hands..."
+— After getting the .357 Magnum
+"Ooh, Wunderwaffe!"
+— After getting multiple kills with the DG-2
+"To kill quickly, ja! With skill? No."
+— After receiving an Automatic Weapon.
+"So much lead, for the dead! Ahah! I'm a poet, and I didn't know it, Ha!"
+— After getting an Automatic or Shotgun out of the Mystery Box
+"Ich bin... FUCKING ANGRY!"
+— After getting Molotov Cocktail
+"Maybe you move it because... you like me?"
+— After getting the Teddy Bear in the Mystery Box
+"Let Richtofen's carnival of horrors begin!"
+— After getting the Monkey Bomb
+"Ooh, a cute little monkey bomb for the doctor"
+— After getting the Monkey Bomb
+"Play the cymbals of death, my little monkey friend."
+— After getting the Monkey Bomb.
+"I am useless!"
+— After being low on/having no ammunition
+"I need bullets to further my work!"
+— After being low on/having no ammunition
+"AMMO FOR THE DOCTOR!""
+— After being low on/out of ammo
+"No ammo....? NOOOOOO!"
+— After being low on/having no ammunition
+"There is... NOTHING left!"
+— After being low on/having no ammunition
+"Without bullets there can be no bullet wounds!"
+— After being low on/having no ammunition
+"Aaaah, this will help me add to my collection... OF APPENDAGES!"
+— After purchasing Bowie Knife
+"Under what reich is that fair?"
+— After getting a Teddy Bear
+"You could not put that simian in more trusted hands!"
+— After receiving the Monkey Bomb
+"Wunderbar!! Wunderwaffe, WUNDERBAR!!"
+— When receiving the Wunderwaffe DG-2
+"Scheiße, mein veapon, Scheiße!!"
+— When Richtofen runs out of ammo.
+"Come my undead friends to the monkey carnival of horror... I made that up."
+— When about to throw the monkey bomb.
+"With a single strike, you DIE!"
+— After getting Insta-Kill.
+"This must work with telekinesis."
+— After getting Carpenter.
+"No shortage on this front! Hahaha!"
+— After getting the Max Ammo power-up
+"Go to work, my minions!"
+— After getting Carpenter.
+"A hammer to bash their brains! Oh, the windows, right."
+— Obtaining Carpenter.
+"Do not guard the windows my friends. The doctor has it covered!"
+— Obtaining Carpenter.
+"Ahh, I love it. STAY AWAY THIS IS MINE!"
+— After using the Pack-a-Punch Machine
+"Attach part A to grommet B... Oh screw it, just press buttons!"
+— After approaching a deactivated Teleporter
+"Ah, good, it is still here! Err, I mean... ooh, what could this be?"
+— After approaching a deactivated Teleporter
+"Step one, activate teleporter. Step two, link it to the mainframe. Step three...matter transfer!"
+— After activating a Teleporter
+"We're going to need more body bags."
+— After receiving a Pack-A-Punched weapon
+"If I remember correctly, we must now activate the central mainframe. I mean... ooh, this is so confusing!"
+— After activating a Teleporter
+"If only Maxis were here to see this."
+— After activating a Teleporter
+"Does anyone need any balls that need polishing? Calm down, Nikolai."
+— After approaching the Pack-A-Punch Machine
+"Why bother? I have little need for these dummkopf's."
+— After drinking Quick Revive Soda.
+"Ohh the shivers and shakes come over me...haha!"
+— After drinking Speed Cola.
+"This cowboy is not amusing."
+— After drinking Double Tap.
+"Ooo the doctor likes his medicine."
+— After drinking Juggernog.
+"Max Ammo Machine?! What a wonderful idea!"
+— After buying the Amm-O-Matic, an unseen Perk Machine programmed into Der Riese.
+"What's that Nikolai? You're scared and wish to run? OK!"
+— To Nikolai
+"Fascinating creatures, don't you think, Nikolai?"
+— After Nikolai Belinski comments on the zombies
+"Once again, Nikolai leads from the front."
+— After Nikolai Belinski gets a kill
+"Dempsey, I am not your babysitter."
+— After "Tank" Dempsey gets downed
+"Dempsey, when this is all over, I'm going to donate you to medical science."
+— After Tank Dempsey says something
+"Look! The missing link! And he's holding a monkey!"
+— After witnessing Tank Dempsey getting the Monkey Bomb
+"Aw nein. It seems sexy. Whatever."
+— Richtofen
+"Dempsey, I hate you with every cell of my body!"
+— After Dempsey comments on himself
+"You are head and shoulders above them Nikolai!"
+— Richtofen to Nikolai.
+""Dempsey, I hate you. I hate your ugly voice.""
+— Edward Richtofen after Dempsey comments on himself.
+"Patience my red friend, they will all perish under our might."
+— To Nikolai
+"Kick him over to me if you need help Russian!"
+— To Nikolai
+"For someone so drunk, you aim so well."
+— To Nikolai
+"Nikolai, you are like drunken sniper!"
+— To Nikolai
+"Nikolai would you like me to cram it down Dempsey's throat? I will if you like."
+— To Nikolai
+"I think a bear would have been more suited to you Russian."
+— To Nikolai
+"The Russian and the German, what a team!!"
+— To Nikolai
+"I nominate Dempsey as crawler bait, any objections?"
+— Edward Richtofen
+"I am not afraid, but I could use some help."
+— When being swarmed
+"I am not afraid, but THEY'RE EVERYWHERE!!"
+— When being swarmed
+"There is probably one big switch somewhere that powers EVERYTHING. We Germans are very efficient."
+— At the beginning of the game.
+"Fluffy? Is that you?"
+— At beginning of a Hellhound round.
+"I require more money!"
+— After trying to buy something without enough money.
+"I think this is called the Mainframe. It must need power."
+— Starting a match.
+"Power power power power! It's always the first priority!"
+— Starting a match.
+"Get off my boots!!"
+— Killing a crawler
+"Leave some for me!!"
+— After seeing zombies killed.
+"You know I really think this whole war thing could have been worked out over a nice little schnapps."
+— Edward Richtofen
+"Heeheeheee they cannot run from me now!!"
+— Getting a weapon
+"Dunker, so good."
+— After being revived
+"Look at the red spray!!"
+— After killing multiple zombies in quick succession
+"I am AROUSED!!"
+— Unknown
+
+
+
+MonkeyBomb
+
+
+"You look friendly."
+— While being primed
+"I'm faulty."
+— While being primed
+"You're not Sam..."
+— While being primed
+"Hello friend."
+— While being primed
+"I love you."
+— While being primed
+"Hi! I'm Monkey. Wanna play?"
+— While being primed. A reference to Chucky from Child's Play.
+"Hello!"
+— When Activating
+"I'm Mr. Monkey"
+— While being primed
+"Let's be friends!"
+— While being primed
+
+"Get ready for a surprise!"
+— Before exploding
+"Bye, bye, Zombies!"
+— Before exploding
+"I'll miss you."
+— Before exploding
+"I hope we meet again!"
+— Before exploding
+"I don't want to leave."
+— Before exploding
+"I'm coming Sam!"
+— Before exploding
+
+
+"Here I come Sam!"
+— Before Exploding, similar to the above quote, "I'm coming Sam!"
+"I just crapped my pants!"
+— Before Exploding
+"Is this the end?"
+— Before exploding
+"Let's play again!"
+— Before exploding
+
+
+"Ow! Ooh! Ow!"
+— After being thrown in the furnace
+
+
+Samantha Maxis[some kind of announcer? World level sound, equal for everyone i think]
+
+"Ka-Boom!"
+— After getting nuke power-up.
+"Max Ammo!"
+— After getting the Max Ammo power-up
+"Insta-Kill!"
+— After getting Insta-Kill
+"Double Points."
+— After getting Double Points
+"Carpenter!"
+— After getting the Carpenter power-up
+
+"Bye Bye!"
+— After getting Teddy Bear from the Mystery box
+"[Demonic Laughter]"
+— When the Teddy Bear appears
+
+"FETCH ME THEIR SOULS!"
+— When hellhounds appear
+"Having FUN!?"
+— When Hellhounds spawn at the mainframe without any power ups.
+"Uh Oh"
+— When both hellhounds and power-ups spawn after teleporting.
+"Uh-oh...NO TREATS FOR YOU!"
+— When Hellhounds spawn after teleporting, without any power-ups
+
+"I want to play a game...let's play Hide & Seek!!"
+— After activating the Fly Trap
+"Yay, you found one..."
+— After finding the first item of the Fly Trap
+"Wow, you found another one!"
+— After finding the another item of the Fly Trap
+"You win... GAME OVER!"
+— After finding all the items of the Fly Trap
+"Why are you so cruel to Mr. Monkey? Mr. Monkey just wanted to PLAY!."
+— After completing the Monkey Bomb in the furnace Easter Egg
+
+
+
+
+

@@ -61,14 +61,14 @@ public class WaveSpawner : MonoBehaviour
     // Public API — called by WaveManager
     // ---------------------------------------------------------------------------
 
-    public void SpawnWave(int waveNumber, int count)
+    public void SpawnWave(int waveNumber, int count, bool elsaWave)
     {
         _waveNumber = waveNumber;
         _waveEnemies.Clear();
         _recentSpawnPositions.Clear();
         _waveActive = true;
-        Logger.LogInfo($"[WaveSpawner] Starting spawn — wave {waveNumber}, {count} enemies.");
-        StartCoroutine(SpawnRoutine(waveNumber, count));
+        Logger.LogInfo($"[WaveSpawner] Starting spawn — wave {waveNumber}, {count} enemies, elsa={elsaWave}.");
+        StartCoroutine(SpawnRoutine(waveNumber, count, elsaWave));
     }
 
     /// <summary>
@@ -174,20 +174,36 @@ public class WaveSpawner : MonoBehaviour
     // Spawn coroutine
     // ---------------------------------------------------------------------------
 
-    private IEnumerator SpawnRoutine(int waveNumber, int count)
+    private IEnumerator SpawnRoutine(int waveNumber, int count, bool elsaWave)
     {
         const float spawnInterval = 0.75f;
 
         for (int i = 0; i < count; i++)
         {
-            TrySpawnOne(waveNumber);
+            TrySpawnOne(waveNumber, elsaWave);
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    private void TrySpawnOne(int waveNumber)
+    private void TrySpawnOne(int waveNumber, bool elsaWave)
     {
-        if (!PickEnemySetup(waveNumber, out EnemySetup? setup, out bool isFastVariant) || setup == null)
+        EnemySetup? setup;
+        bool isFastVariant;
+
+        if (elsaWave)
+        {
+            if (!PickElsaSetup(out setup) || setup == null)
+            {
+                // Elsa not found — fall back to normal spawn.
+                if (!PickEnemySetup(waveNumber, out setup, out isFastVariant) || setup == null)
+                {
+                    Logger.LogWarning("[WaveSpawner] PickElsaSetup and fallback both failed.");
+                    return;
+                }
+            }
+            isFastVariant = true; // Elsa counts as fast variant ($100 reward)
+        }
+        else if (!PickEnemySetup(waveNumber, out setup, out isFastVariant) || setup == null)
         {
             Logger.LogWarning("[WaveSpawner] PickEnemySetup returned null — is EnemyDirector ready?");
             return;
@@ -252,6 +268,36 @@ public class WaveSpawner : MonoBehaviour
 
         _waveEnemies.Add(enemy);
         Logger.LogInfo($"[WaveSpawner] {setup.name} registered (fast={isFastVariant}). Wave total: {_waveEnemies.Count}");
+
+        // Once the enemy actually spawns (2-5s), direct it toward the player centroid.
+        StartCoroutine(InvestigateOnSpawn(enemy));
+    }
+
+    // ---------------------------------------------------------------------------
+    // Post-spawn investigate — waits until the enemy actually appears, then
+    // directs it toward the player centroid so it pathfinds in immediately.
+    // ---------------------------------------------------------------------------
+
+    private IEnumerator InvestigateOnSpawn(EnemyParent enemy)
+    {
+        float timeout = 12f;
+        while (timeout > 0f)
+        {
+            if (enemy == null) yield break; // enemy was destroyed
+            if (enemy.Spawned && enemy.Enemy != null) break;
+            yield return new WaitForSeconds(0.5f);
+            timeout -= 0.5f;
+        }
+
+        if (enemy == null || !enemy.Spawned || enemy.Enemy == null)
+        {
+            Logger.LogWarning($"[WaveSpawner] InvestigateOnSpawn timed out for {enemy?.name}.");
+            yield break;
+        }
+
+        Vector3 centroid = GetPlayerCentroid();
+        EnemyDirector.instance?.SetInvestigate(centroid, float.MaxValue, false);
+        Logger.LogInfo($"[WaveSpawner] {enemy.name} directed toward centroid {centroid}.");
     }
 
     // ---------------------------------------------------------------------------
@@ -261,6 +307,36 @@ public class WaveSpawner : MonoBehaviour
     // Wave 2  → 70% difficulty1, 30% difficulty2 (mixed)
     // Wave 3+ → 30% difficulty1, 40% difficulty2, 30% difficulty3 (fast/aggressive)
     // ---------------------------------------------------------------------------
+
+    // Finds the Elsa enemy setup from any difficulty pool.
+    private static bool PickElsaSetup(out EnemySetup? setup)
+    {
+        setup = null;
+        EnemyDirector? director = EnemyDirector.instance;
+        if (director == null) return false;
+
+        var candidates = new List<EnemySetup>();
+        foreach (var pool in new[] { director.enemiesDifficulty1, director.enemiesDifficulty2, director.enemiesDifficulty3 })
+        {
+            if (pool == null) continue;
+            foreach (var s in pool)
+            {
+                if (s?.spawnObjects != null && s.spawnObjects.Count > 0 &&
+                    s.spawnObjects[0].ResourcePath.Contains("Elsa"))
+                    candidates.Add(s);
+            }
+        }
+
+        if (candidates.Count == 0)
+        {
+            SEMIDEAD.Logger.LogWarning("[WaveSpawner] No Elsa EnemySetup found in any difficulty pool.");
+            return false;
+        }
+
+        setup = candidates[Random.Range(0, candidates.Count)];
+        SEMIDEAD.Logger.LogInfo($"[WaveSpawner] Elsa setup selected: {setup.name}");
+        return true;
+    }
 
     // isFastVariant = true for difficulty2/3 enemies → $100 kill reward instead of $50.
     private static bool PickEnemySetup(int wave, out EnemySetup? setup, out bool isFastVariant)
@@ -339,13 +415,24 @@ public class WaveSpawner : MonoBehaviour
             return Vector3.zero;
         }
 
-        Vector3 centroid = GetPlayerCentroid();
-
+        var players    = SemiFunc.PlayerGetList();
         var edgePoints = new List<LevelPoint>(all.Count);
         foreach (var pt in all)
         {
-            if ((pt.transform.position - centroid).sqrMagnitude >= EdgeMinDistSq)
-                edgePoints.Add(pt);
+            bool farFromAll = true;
+            if (players != null)
+            {
+                foreach (var p in players)
+                {
+                    if (p == null) continue;
+                    if ((pt.transform.position - p.transform.position).sqrMagnitude < EdgeMinDistSq)
+                    {
+                        farFromAll = false;
+                        break;
+                    }
+                }
+            }
+            if (farFromAll) edgePoints.Add(pt);
         }
 
         List<LevelPoint> pool = edgePoints.Count > 0 ? edgePoints : all;

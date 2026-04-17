@@ -3,7 +3,6 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace SEMIDEAD;
 
@@ -63,11 +62,18 @@ public class AnnouncerSystem : MonoBehaviour
     private float             _lastKillTime;
     private readonly HashSet<int> _chainAnnounced = new();
 
+    // Per-wave kill counts for MVP announcement
+    private readonly Dictionary<string, int> _waveKillCounts = new();
+
     // Kill attribution — static so patches can write to them without an instance reference
     private static readonly Dictionary<PlayerAvatar, (PlayerAvatar attacker, float hitTime)>
         _recentPlayerHits = new();
     private static readonly Dictionary<PlayerAvatar, float>
         _recentEnemyHits = new();
+
+    // Current shooter — recorded from ShootBulletRPC for betrayal detection
+    private static PlayerAvatar? _currentShooter;
+    private static float         _currentShooterTime;
 
     // ---------------------------------------------------------------------------
     // Lifecycle
@@ -103,8 +109,11 @@ public class AnnouncerSystem : MonoBehaviour
         _lastKillTime    = 0f;
         _spreeAnnouncedThresholds.Clear();
         _chainAnnounced.Clear();
+        _waveKillCounts.Clear();
         _recentPlayerHits.Clear();
         _recentEnemyHits.Clear();
+        _currentShooter     = null;
+        _currentShooterTime = 0f;
     }
 
     // ---------------------------------------------------------------------------
@@ -115,6 +124,7 @@ public class AnnouncerSystem : MonoBehaviour
     {
         _multiKillCount = 0;
         _chainAnnounced.Clear();
+        _waveKillCounts.Clear();
         SpeakAllPlayers($"WAVE {waveNumber}");
     }
 
@@ -122,15 +132,24 @@ public class AnnouncerSystem : MonoBehaviour
     // Enemy killed — called from EnemyHealthPatch on every enemy death.
     // ---------------------------------------------------------------------------
 
-    public void OnEnemyKilled()
+    public void OnEnemyKilled(Vector3 position)
     {
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
 
-        // First blood: fires once, skips multi-kill chain seeding.
+        // Track per-wave kills for MVP (nearest player gets credit).
+        PlayerAvatar? killer = GetNearestLivingPlayer(position);
+        if (killer != null)
+        {
+            _waveKillCounts.TryGetValue(killer.playerName, out int prev);
+            _waveKillCounts[killer.playerName] = prev + 1;
+        }
+
+        // First blood: fires once with player name.
         if (!_firstBloodFired)
         {
             _firstBloodFired = true;
-            SpeakAllPlayers("FIRST BLOOD");
+            string killerName = killer?.playerName ?? "UNKNOWN";
+            SpeakAllPlayers($"{killerName} drew first blood!");
             _lastKillTime   = Time.time;
             _multiKillCount = 1;
             _chainAnnounced.Clear();
@@ -174,6 +193,25 @@ public class AnnouncerSystem : MonoBehaviour
         CheckSpree();
     }
 
+    public void AnnounceWaveMVP()
+    {
+        if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
+        if (_waveKillCounts.Count == 0) return;
+
+        string? mvp = null;
+        int maxKills = 0;
+        foreach (var kv in _waveKillCounts)
+            if (kv.Value > maxKills) { maxKills = kv.Value; mvp = kv.Key; }
+
+        if (mvp != null)
+        {
+            SpeakAllPlayers($"{mvp} led the slaughter!");
+            Logger.LogInfo($"[AnnouncerSystem] Wave MVP: {mvp} with {maxKills} kills.");
+        }
+
+        _waveKillCounts.Clear();
+    }
+
     private void CheckSpree()
     {
         foreach (var (threshold, text) in SpreeThresholds)
@@ -203,6 +241,34 @@ public class AnnouncerSystem : MonoBehaviour
         _recentEnemyHits[victim] = Time.time;
     }
 
+    /// <summary>Record the player currently firing a gun (for betrayal attribution).</summary>
+    internal static void RecordCurrentShooter(PlayerAvatar attacker)
+    {
+        _currentShooter     = attacker;
+        _currentShooterTime = Time.time;
+    }
+
+    /// <summary>Returns the current shooter if within the attribution window, else null.</summary>
+    internal static PlayerAvatar? GetCurrentShooter(float window) =>
+        _currentShooter != null && Time.time - _currentShooterTime <= window
+            ? _currentShooter : null;
+
+    private static PlayerAvatar? GetNearestLivingPlayer(Vector3 pos)
+    {
+        var players = SemiFunc.PlayerGetList();
+        if (players == null) return null;
+
+        PlayerAvatar? nearest  = null;
+        float         bestDist = float.MaxValue;
+        foreach (var p in players)
+        {
+            if (p == null || p.isDisabled) continue;
+            float d = (p.transform.position - pos).sqrMagnitude;
+            if (d < bestDist) { bestDist = d; nearest = p; }
+        }
+        return nearest;
+    }
+
     /// <summary>
     /// Called when a player's death head spawns. Checks attribution within
     /// AttackerWindow to decide between BETRAYAL, silence (enemy kill), or SUICIDE.
@@ -219,6 +285,9 @@ public class AnnouncerSystem : MonoBehaviour
         _recentPlayerHits.Remove(player);
         _recentEnemyHits.Remove(player);
 
+        // Always announce the player going down.
+        SpeakAllPlayers($"{player.playerName} is down!");
+
         if (killedByPlayer && SemiFunc.IsMultiplayer())
         {
             SpeakAllPlayers(BetrayalLines[Random.Range(0, BetrayalLines.Length)]);
@@ -229,7 +298,6 @@ public class AnnouncerSystem : MonoBehaviour
             SpeakAllPlayers("SUICIDE");
             Logger.LogInfo($"[AnnouncerSystem] Suicide — {player.playerName}.");
         }
-        // else: killed by enemy — no announcement
 
         // Count remaining alive players (explicitly exclude the dying player in case
         // isDisabled hasn't been set yet when this postfix fires).
@@ -274,8 +342,18 @@ public class AnnouncerSystem : MonoBehaviour
 }
 
 // ---------------------------------------------------------------------------
-// Records which player fired a bullet that hit another player.
-// Does NOT announce directly — announcement fires on confirmed death only.
+// Betrayal detection — two-patch approach.
+//
+// Root cause of old approach failure: HurtCollider.PlayerHurt has a
+//   `if (GameManager.Multiplayer() && !_player.photonView.IsMine) return;`
+// guard, so onImpactPlayer only fires on the VICTIM's machine, never on
+// the master client. The old listener-on-onImpactPlayer approach was always
+// a no-op on the host.
+//
+// New approach:
+//   1. ShootBulletRPC Postfix records the current shooter on master client.
+//   2. HurtCollider.PlayerHurt Prefix intercepts the call on master client
+//      BEFORE the IsMine check, capturing (victim, attacker) for attribution.
 // ---------------------------------------------------------------------------
 [HarmonyPatch(typeof(ItemGun), "ShootBulletRPC")]
 static class TeamKillDetectionPatch
@@ -283,7 +361,6 @@ static class TeamKillDetectionPatch
     [HarmonyPostfix]
     private static void Postfix(ItemGun __instance)
     {
-        if (!SemiFunc.IsMultiplayer()) return;
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
 
         var physGrab = __instance.GetComponent<PhysGrabObject>();
@@ -292,20 +369,29 @@ static class TeamKillDetectionPatch
         PlayerAvatar? attacker = physGrab.playerGrabbing[0].playerAvatar;
         if (attacker == null) return;
 
-        var hurtCollider = Traverse.Create(__instance)
-            .Field("hurtCollider").GetValue<HurtCollider>();
-        if (hurtCollider == null) return;
+        AnnouncerSystem.RecordCurrentShooter(attacker);
+    }
+}
 
-        // One-shot listener: record the hit for attribution on death.
-        UnityAction? listener = null;
-        listener = () =>
-        {
-            hurtCollider.onImpactPlayer.RemoveListener(listener!);
-            PlayerAvatar? victim = hurtCollider.onImpactPlayerAvatar;
-            if (victim != null && victim != attacker)
-                AnnouncerSystem.RecordPlayerHit(victim, attacker);
-        };
-        hurtCollider.onImpactPlayer.AddListener(listener);
+[HarmonyPatch(typeof(HurtCollider), "PlayerHurt")]
+static class HurtColliderPlayerHurtPatch
+{
+    private const float ShooterWindow = 0.5f; // max seconds between shoot and hit landing
+
+    // Prefix runs BEFORE the IsMine check inside PlayerHurt, so we capture
+    // the victim on master client even though PlayerHurt would return early.
+    [HarmonyPrefix]
+    private static void Prefix(HurtCollider __instance, PlayerAvatar _player)
+    {
+        if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
+        if (__instance.enemyHost != null) return; // enemy attack, not a player gun
+        if (_player == null) return;
+
+        PlayerAvatar? shooter = AnnouncerSystem.GetCurrentShooter(ShooterWindow);
+        if (shooter == null || shooter == _player) return; // no shooter or self-damage
+
+        AnnouncerSystem.RecordPlayerHit(_player, shooter);
+        SEMIDEAD.Logger.LogInfo($"[AnnouncerSystem] Potential team hit: {shooter.playerName} → {_player.playerName}");
     }
 }
 
