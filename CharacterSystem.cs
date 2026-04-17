@@ -530,8 +530,10 @@ public class CharacterSystem : MonoBehaviour
     }
 
     // ---------------------------------------------------------------------------
-    // Wave 1 start — Richtofen → Nikolai → Dempsey → Takeo, 1.5s between each.
-    // Only one player per character type speaks.
+    // Wave 1 start — Richtofen → Nikolai → Dempsey → Takeo, staggered to reduce
+    // chaos: fires at 10s, 18s, 26s, 32s from wave start.
+    // Only one player per character type speaks. Skipped types (no player assigned)
+    // don't compress the remaining delays — timing is absolute from wave start.
     // ---------------------------------------------------------------------------
 
     public void StartWaveOneSequence()
@@ -542,18 +544,22 @@ public class CharacterSystem : MonoBehaviour
 
     private IEnumerator WaveOneSequenceCoroutine()
     {
-        // Wait for the "WAVE 1" TTS announcement to finish before character lines fire.
-        yield return new WaitForSeconds(2.5f);
+        var order  = new[] { Character.Richtofen, Character.Nikolai, Character.Dempsey, Character.Takeo };
+        var delays = new[] { 10f, 18f, 26f, 32f };
+        float elapsed = 0f;
 
-        var order = new[] { Character.Richtofen, Character.Nikolai, Character.Dempsey, Character.Takeo };
-        foreach (Character c in order)
+        for (int i = 0; i < order.Length; i++)
         {
-            PlayerAvatar? speaker = FindFirstPlayerOfCharacter(c);
-            if (speaker != null)
+            PlayerAvatar? speaker = FindFirstPlayerOfCharacter(order[i]);
+            if (speaker == null) continue;
+
+            float wait = delays[i] - elapsed;
+            if (wait > 0f)
             {
-                TriggerSpeechDirect(speaker, SpeechTrigger.WaveOneStart);
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(wait);
+                elapsed += wait;
             }
+            TriggerSpeechDirect(speaker, SpeechTrigger.WaveOneStart);
         }
     }
 
