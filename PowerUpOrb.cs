@@ -1,4 +1,3 @@
-using Photon.Pun;
 using UnityEngine;
 
 namespace SEMIDEAD;
@@ -10,7 +9,8 @@ namespace SEMIDEAD;
 /// </summary>
 public class PowerUpOrb : MonoBehaviour
 {
-    public PowerUpType Type { get; set; }
+    public PowerUpType Type  { get; set; }
+    public int         OrbId { get; set; }
 
     private const float PickupRadius = 2.5f; // > normal grab range (~2 f) so we intercept first
     private const float Lifetime     = 30f;
@@ -61,9 +61,7 @@ public class PowerUpOrb : MonoBehaviour
 
     private void DestroyOrb()
     {
-        if (SemiFunc.IsMultiplayer())
-            PhotonNetwork.Destroy(gameObject);
-        else
-            Destroy(gameObject);
+        PowerUpManager.RaiseOrbDestroy(OrbId);
+        Destroy(gameObject);
     }
 }

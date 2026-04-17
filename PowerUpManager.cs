@@ -1,7 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using BepInEx.Logging;
+using ExitGames.Client.Photon;
 using HarmonyLib;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 namespace SEMIDEAD;
@@ -28,6 +31,13 @@ public class PowerUpManager : MonoBehaviour
 
     private const float TimedEffectDuration = 30f;
     private const float OrbDropChance       = 0.10f;
+
+    private const byte OrbSpawnEventCode   = 44;
+    private const byte OrbDestroyEventCode = 45;
+
+    private static int _orbIdCounter = 0;
+    private static readonly Dictionary<int, GameObject> _clientOrbs = new();
+    private static OrbVisualListener? _orbListener;
 
     // ---------------------------------------------------------------------------
     // Lifecycle
@@ -65,9 +75,89 @@ public class PowerUpManager : MonoBehaviour
     };
 
     // ---------------------------------------------------------------------------
-    // Orb drop — spawns the game's native enemy valuable (soul orb) via Photon so
-    // all clients see it. Size varies by power-up type. Native drops are suppressed
-    // in WaveSpawner so orbs only appear on this 10% roll.
+    // Orb visual sync — Photon events 44 (spawn) and 45 (destroy) keep a local
+    // colored sphere visible on all clients. No room object needed; pickup logic
+    // runs host-side only. Pattern mirrors ShotgunExplosionPatch (event 43).
+    // ---------------------------------------------------------------------------
+
+    public static void RegisterOrbListener()
+    {
+        if (_orbListener != null) return;
+        if (!PhotonNetwork.IsConnected) return;
+        _orbListener = new OrbVisualListener();
+        PhotonNetwork.AddCallbackTarget(_orbListener);
+    }
+
+    internal static void RaiseOrbDestroy(int orbId)
+    {
+        if (!SemiFunc.IsMultiplayer()) return;
+        PhotonNetwork.RaiseEvent(
+            OrbDestroyEventCode,
+            orbId,
+            new RaiseEventOptions { Receivers = ReceiverGroup.Others },
+            SendOptions.SendReliable);
+    }
+
+    private class OrbVisualListener : IOnEventCallback
+    {
+        public void OnEvent(EventData ev)
+        {
+            if (SemiFunc.IsMasterClientOrSingleplayer()) return; // host handles its own visuals
+
+            if (ev.Code == OrbSpawnEventCode)
+            {
+                var data   = (object[])ev.CustomData;
+                int orbId  = (int)data[0];
+                var pos    = (Vector3)data[1];
+                var type   = (PowerUpType)(int)data[2];
+
+                var go = new GameObject($"SEMIDEAD_PowerUpOrb_Client_{orbId}");
+                go.transform.position = pos;
+                AddOrbVisual(go, type);
+                _clientOrbs[orbId] = go;
+                Logger.LogInfo($"[PowerUpManager] Client orb {orbId} ({type}) visual spawned at {pos}.");
+            }
+            else if (ev.Code == OrbDestroyEventCode)
+            {
+                int orbId = (int)ev.CustomData;
+                if (_clientOrbs.TryGetValue(orbId, out var go))
+                {
+                    Object.Destroy(go);
+                    _clientOrbs.Remove(orbId);
+                    Logger.LogInfo($"[PowerUpManager] Client orb {orbId} visual destroyed.");
+                }
+            }
+        }
+    }
+
+    private static void AddOrbVisual(GameObject parent, PowerUpType type)
+    {
+        Color color = OrbColor(type);
+
+        var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        Object.Destroy(sphere.GetComponent<Collider>());
+        sphere.transform.SetParent(parent.transform);
+        sphere.transform.localPosition = Vector3.zero;
+        sphere.transform.localScale    = Vector3.one * 0.4f;
+        var mat = new Material(Shader.Find("Standard"));
+        mat.color = color;
+        mat.EnableKeyword("_EMISSION");
+        mat.SetColor("_EmissionColor", color * 2f);
+        sphere.GetComponent<MeshRenderer>().material = mat;
+
+        var lightGo = new GameObject("OrbLight");
+        lightGo.transform.SetParent(parent.transform);
+        lightGo.transform.localPosition = Vector3.zero;
+        var lt = lightGo.AddComponent<Light>();
+        lt.type      = LightType.Point;
+        lt.color     = color;
+        lt.intensity = 2f;
+        lt.range     = 4f;
+    }
+
+    // ---------------------------------------------------------------------------
+    // Orb drop — creates a local host-side orb with visual, then broadcasts the
+    // visual to clients via Photon event 44. No room object, no valuable prefab.
     // ---------------------------------------------------------------------------
 
     public static void TryDropOrb(Vector3 deathPos)
@@ -83,44 +173,27 @@ public class PowerUpManager : MonoBehaviour
 
         if (Instance == null) { Logger.LogWarning("[PowerUpManager] Instance null — skipping orb."); return; }
 
-        var assetMgr = AssetManager.instance;
-        if (assetMgr == null)
-        {
-            Logger.LogWarning("[PowerUpManager] AssetManager null — skipping orb drop.");
-            return;
-        }
+        PowerUpType type    = (PowerUpType)Random.Range(0, 4);
+        int         orbId   = _orbIdCounter++;
+        Vector3     spawnPos = deathPos + Vector3.up * 0.5f;
 
-        PowerUpType type = (PowerUpType)Random.Range(0, 4);
+        Logger.LogInfo($"[PowerUpManager] Dropping {type} orb (id={orbId}) at {spawnPos}.");
 
-        // Map power-up type to orb size so clients see a visual difference.
-        GameObject? prefab = type switch
-        {
-            PowerUpType.Nuke      => assetMgr.enemyValuableBig,
-            PowerUpType.InstaKill => assetMgr.enemyValuableMedium,
-            _                     => assetMgr.enemyValuableSmall,
-        };
+        var go = new GameObject($"SEMIDEAD_PowerUpOrb_{orbId}");
+        go.transform.position = spawnPos;
+        AddOrbVisual(go, type);
+        var orb = go.AddComponent<PowerUpOrb>();
+        orb.Type  = type;
+        orb.OrbId = orbId;
 
-        if (prefab == null)
-        {
-            Logger.LogWarning("[PowerUpManager] Enemy valuable prefab null — skipping orb drop.");
-            return;
-        }
-
-        string path     = "Valuables/" + prefab.name;
-        Vector3 spawnPos = deathPos + Vector3.up * 0.5f;
-        Logger.LogInfo($"[PowerUpManager] Dropping {type} orb — path '{path}', pos {spawnPos}.");
-
-        GameObject? go;
         if (SemiFunc.IsMultiplayer())
-            go = PhotonNetwork.InstantiateRoomObject(path, spawnPos, Quaternion.identity);
-        else
-            go = Object.Instantiate(prefab, spawnPos, Quaternion.identity);
+            PhotonNetwork.RaiseEvent(
+                OrbSpawnEventCode,
+                new object[] { orbId, spawnPos, (int)type },
+                new RaiseEventOptions { Receivers = ReceiverGroup.Others },
+                SendOptions.SendReliable);
 
-        if (go == null) { Logger.LogWarning($"[PowerUpManager] Orb spawn returned null (path='{path}')."); return; }
-
-        var orb  = go.AddComponent<PowerUpOrb>();
-        orb.Type = type;
-        Logger.LogInfo($"[PowerUpManager] Orb spawned — {type}, PowerUpOrb component added.");
+        Logger.LogInfo($"[PowerUpManager] Orb {orbId} ({type}) spawned.");
     }
 
     // ---------------------------------------------------------------------------

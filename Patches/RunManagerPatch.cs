@@ -19,6 +19,7 @@ static class RunManagerPatch
         // Register Photon event listener on all clients — safe here since Photon is
         // connected by the time ChangeLevel fires (unlike Awake, which is pre-Photon).
         ShotgunExplosionPatch.RegisterListener();
+        PowerUpManager.RegisterOrbListener();
 
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
 
