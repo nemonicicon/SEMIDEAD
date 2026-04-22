@@ -78,6 +78,23 @@ static class HandgunPatch
     }
 
     // ---------------------------------------------------------------------------
+    // 50% recoil reduction
+    // ---------------------------------------------------------------------------
+
+    [HarmonyPostfix, HarmonyPatch(typeof(ItemGun), "Start")]
+    private static void GunStart_Postfix(ItemGun __instance)
+    {
+        var attrs = __instance.GetComponent<ItemAttributes>();
+        bool isHandgun = attrs != null
+            ? attrs.instanceName.StartsWith(StartingPistol.HandgunName)
+            : __instance.gameObject.name.StartsWith("Item Gun Handgun");
+        if (!isHandgun) return;
+
+        __instance.gunRecoilForce *= 0.5f;
+        SEMIDEAD.Logger.LogInfo($"[HandgunPatch] MAG 60 recoil halved → {__instance.gunRecoilForce}");
+    }
+
+    // ---------------------------------------------------------------------------
     // 30-round magazine
     // ---------------------------------------------------------------------------
 

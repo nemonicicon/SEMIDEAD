@@ -176,7 +176,7 @@ public class WaveSpawner : MonoBehaviour
 
     private IEnumerator SpawnRoutine(int waveNumber, int count, bool elsaWave)
     {
-        const float spawnInterval = 0.75f;
+        const float spawnInterval = 1.5f;
 
         for (int i = 0; i < count; i++)
         {
@@ -308,7 +308,10 @@ public class WaveSpawner : MonoBehaviour
     // Wave 3+ → 30% difficulty1, 40% difficulty2, 30% difficulty3 (fast/aggressive)
     // ---------------------------------------------------------------------------
 
+    private static bool _elsaPoolLogged = false;
+
     // Finds the Elsa enemy setup from any difficulty pool.
+    // Matches by ResourcePath OR setup name containing "Elsa" (case-insensitive).
     private static bool PickElsaSetup(out EnemySetup? setup)
     {
         setup = null;
@@ -321,11 +324,21 @@ public class WaveSpawner : MonoBehaviour
             if (pool == null) continue;
             foreach (var s in pool)
             {
-                if (s?.spawnObjects != null && s.spawnObjects.Count > 0 &&
-                    s.spawnObjects[0].ResourcePath.Contains("Elsa"))
+                if (s?.spawnObjects == null || s.spawnObjects.Count == 0) continue;
+
+                string path  = s.spawnObjects[0].ResourcePath ?? "";
+                string sname = s.name ?? "";
+
+                // Log all pool entries once to aid resource path diagnosis.
+                if (!_elsaPoolLogged)
+                    SEMIDEAD.Logger.LogInfo($"[WaveSpawner] EnemySetup: name=\"{sname}\" path=\"{path}\"");
+
+                if (path.IndexOf("Elsa", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    sname.IndexOf("Elsa", System.StringComparison.OrdinalIgnoreCase) >= 0)
                     candidates.Add(s);
             }
         }
+        _elsaPoolLogged = true;
 
         if (candidates.Count == 0)
         {
@@ -334,7 +347,8 @@ public class WaveSpawner : MonoBehaviour
         }
 
         setup = candidates[Random.Range(0, candidates.Count)];
-        SEMIDEAD.Logger.LogInfo($"[WaveSpawner] Elsa setup selected: {setup.name}");
+        string selPath = setup.spawnObjects[0].ResourcePath ?? "";
+        SEMIDEAD.Logger.LogInfo($"[WaveSpawner] Elsa setup selected: name=\"{setup.name}\" path=\"{selPath}\"");
         return true;
     }
 
@@ -377,16 +391,20 @@ public class WaveSpawner : MonoBehaviour
             return false;
         }
 
-        // Filter out Director-type enemies (e.g. GnomeDirector) — they are level
-        // management entities, not combat enemies, and crash when wave-spawned.
+        // Filter out Director-type enemies (e.g. GnomeDirector) — level management, crash when wave-spawned.
         // Filter out Ceiling Eye — attaches to ceilings, incompatible with wave spawn flow.
+        // Filter out Spewer and Tick — reserved for a special round, not general waves.
         var filtered = new List<EnemySetup>(pool.Count);
         foreach (var s in pool)
         {
-            if (s?.spawnObjects != null && s.spawnObjects.Count > 0 &&
-                !s.spawnObjects[0].ResourcePath.Contains("Director") &&
-                !s.spawnObjects[0].ResourcePath.Contains("Ceiling Eye"))
-                filtered.Add(s);
+            if (s?.spawnObjects == null || s.spawnObjects.Count == 0) continue;
+            string path  = s.spawnObjects[0].ResourcePath ?? "";
+            string sname = s.name ?? "";
+            if (path.Contains("Director")   || sname.Contains("Director"))   continue;
+            if (path.Contains("Ceiling Eye") || sname.Contains("Ceiling Eye")) continue;
+            if (path.Contains("Spewer")     || sname.Contains("Spewer"))     continue;
+            if (path.Contains("Tick")       || sname.Contains("Tick"))       continue;
+            filtered.Add(s);
         }
 
         if (filtered.Count == 0)
@@ -403,8 +421,29 @@ public class WaveSpawner : MonoBehaviour
     // Spawn point selection — picks randomly from edge LevelPoints (far from players)
     // ---------------------------------------------------------------------------
 
-    private const float EdgeMinDistSq      = 225f; // 15 units
-    private const float SpawnSpacingDistSq = 9f;   // 3 units
+    private static List<LevelPoint> FilterByMinDist(List<LevelPoint> all, List<PlayerAvatar>? players, float minDistSq)
+    {
+        var result = new List<LevelPoint>(all.Count);
+        foreach (var pt in all)
+        {
+            bool farFromAll = true;
+            if (players != null)
+            {
+                foreach (var p in players)
+                {
+                    if (p == null) continue;
+                    if ((pt.transform.position - p.transform.position).sqrMagnitude < minDistSq)
+                    { farFromAll = false; break; }
+                }
+            }
+            if (farFromAll) result.Add(pt);
+        }
+        return result;
+    }
+
+    private const float EdgeMinDistSq         = 225f; // 15 units
+    private const float EdgeMinDistSqFallback = 100f; // 10 units fallback
+    private const float SpawnSpacingDistSq    = 9f;   // 3 units
 
     private static Vector3 GetEdgeSpawnPosition(List<Vector3> recentPositions)
     {
@@ -416,26 +455,20 @@ public class WaveSpawner : MonoBehaviour
         }
 
         var players    = SemiFunc.PlayerGetList();
-        var edgePoints = new List<LevelPoint>(all.Count);
-        foreach (var pt in all)
+
+        // Filter at 15 units first; fall back to 10 units if nothing qualifies.
+        var edgePoints = FilterByMinDist(all, players, EdgeMinDistSq);
+        SEMIDEAD.Logger.LogInfo($"[WaveSpawner] Spawn point filter: {edgePoints.Count}/{all.Count} valid at 15u.");
+
+        if (edgePoints.Count == 0)
         {
-            bool farFromAll = true;
-            if (players != null)
-            {
-                foreach (var p in players)
-                {
-                    if (p == null) continue;
-                    if ((pt.transform.position - p.transform.position).sqrMagnitude < EdgeMinDistSq)
-                    {
-                        farFromAll = false;
-                        break;
-                    }
-                }
-            }
-            if (farFromAll) edgePoints.Add(pt);
+            edgePoints = FilterByMinDist(all, players, EdgeMinDistSqFallback);
+            SEMIDEAD.Logger.LogWarning($"[WaveSpawner] 15u filter empty — fallback 10u: {edgePoints.Count}/{all.Count} valid.");
         }
 
         List<LevelPoint> pool = edgePoints.Count > 0 ? edgePoints : all;
+        if (edgePoints.Count == 0)
+            SEMIDEAD.Logger.LogWarning("[WaveSpawner] 10u fallback also empty — using all LevelPoints.");
 
         if (recentPositions.Count > 0)
         {

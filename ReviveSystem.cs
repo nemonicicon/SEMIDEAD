@@ -27,7 +27,7 @@ public class ReviveSystem : MonoBehaviour
     public static ReviveSystem? Instance { get; private set; }
     private static ManualLogSource Logger => SEMIDEAD.Logger;
 
-    private const float HoldReviveDuration = 3f;
+    private const float HoldReviveDuration = 5f;
     private const float PickupReviveWindow  = 30f;
 
     /// <summary>Maps a dead player to the Time.time value when they died.</summary>

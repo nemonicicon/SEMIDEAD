@@ -530,50 +530,24 @@ public class CharacterSystem : MonoBehaviour
     }
 
     // ---------------------------------------------------------------------------
-    // Wave 1 start — Richtofen → Nikolai → Dempsey → Takeo, staggered to reduce
-    // chaos: fires at 10s, 18s, 26s, 32s from wave start.
-    // Only one player per character type speaks. Skipped types (no player assigned)
-    // don't compress the remaining delays — timing is absolute from wave start.
+    // Wave 1 start — pick ONE random living player and have only that character
+    // speak their wave start line. Fires immediately when grace period ends.
     // ---------------------------------------------------------------------------
 
     public void StartWaveOneSequence()
     {
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
-        StartCoroutine(WaveOneSequenceCoroutine());
-    }
 
-    private IEnumerator WaveOneSequenceCoroutine()
-    {
-        var order  = new[] { Character.Richtofen, Character.Nikolai, Character.Dempsey, Character.Takeo };
-        var delays = new[] { 10f, 18f, 26f, 32f };
-        float elapsed = 0f;
-
-        for (int i = 0; i < order.Length; i++)
-        {
-            PlayerAvatar? speaker = FindFirstPlayerOfCharacter(order[i]);
-            if (speaker == null) continue;
-
-            float wait = delays[i] - elapsed;
-            if (wait > 0f)
-            {
-                yield return new WaitForSeconds(wait);
-                elapsed += wait;
-            }
-            TriggerSpeechDirect(speaker, SpeechTrigger.WaveOneStart);
-        }
-    }
-
-    private PlayerAvatar? FindFirstPlayerOfCharacter(Character c)
-    {
         var players = SemiFunc.PlayerGetList();
-        if (players == null) return null;
+        if (players == null || players.Count == 0) return;
+
+        var living = new List<PlayerAvatar>();
         foreach (var p in players)
-        {
-            if (p == null || p.isDisabled) continue;
-            if (_assignments.TryGetValue(p.playerName, out Character assigned) && assigned == c)
-                return p;
-        }
-        return null;
+            if (p != null && !p.isDisabled) living.Add(p);
+        if (living.Count == 0) return;
+
+        PlayerAvatar speaker = living[Random.Range(0, living.Count)];
+        TriggerSpeechDirect(speaker, SpeechTrigger.WaveOneStart);
     }
 
     // ---------------------------------------------------------------------------

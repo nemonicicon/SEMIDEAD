@@ -298,12 +298,6 @@ public class WaveManager : MonoBehaviour
     private static int GetMonsterCount(int wave, int playerCount)
     {
         int scaling = Mathf.FloorToInt(playerCount * 1.5f);
-        return wave switch
-        {
-            1 => 6  + scaling,
-            2 => 10 + scaling,
-            3 => 14 + scaling,
-            _ => 14 + (wave - 4) * 2 + scaling,
-        };
+        return Mathf.Min(6 + wave + scaling, 12);
     }
 }
