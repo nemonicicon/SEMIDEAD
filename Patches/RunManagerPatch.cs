@@ -4,6 +4,25 @@ using UnityEngine;
 namespace SEMIDEAD.Patches;
 
 /// <summary>
+/// Suppresses all native enemy spawning during gameplay levels.
+/// SEMIDEAD controls spawning entirely through WaveSpawner — no native enemies wanted.
+/// </summary>
+[HarmonyPatch(typeof(LevelGenerator), "EnemySpawn")]
+static class LevelGeneratorEnemySpawnPatch
+{
+    [HarmonyPrefix]
+    private static bool Prefix()
+    {
+        var rm = RunManager.instance;
+        if (rm == null || rm.levelCurrent == null || rm.levels == null) return true;
+        if (!rm.levels.Contains(rm.levelCurrent)) return true; // not a gameplay level — allow
+
+        SEMIDEAD.Logger.LogInfo("[LevelGeneratorEnemySpawnPatch] Blocked native enemy spawn in gameplay level.");
+        return false; // skip original
+    }
+}
+
+/// <summary>
 /// Hooks R.E.P.O.'s RunManager to reset the wave cycle whenever a new level loads.
 /// Uses lazy initialisation — recreates singletons if Unity destroyed them during
 /// a scene transition before the patch fires.
@@ -28,7 +47,6 @@ static class RunManagerPatch
         // Register Photon event listener on all clients — safe here since Photon is
         // connected by the time ChangeLevel fires (unlike Awake, which is pre-Photon).
         ShotgunExplosionPatch.RegisterListener();
-        PowerUpManager.RegisterOrbListener();
 
         bool nowGameplay = IsCurrentLevelGameplay();
 

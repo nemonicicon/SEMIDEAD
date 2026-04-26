@@ -24,6 +24,8 @@ public enum SpeechTrigger
     Revived,
     LowAmmo,
     OutOfAmmo,
+    WallBuyInsufficientFunds,
+    WallBuyPurchase,
 }
 
 /// <summary>
@@ -74,8 +76,10 @@ public class CharacterSystem : MonoBehaviour
         { SpeechTrigger.Nuke,                 5f },
         { SpeechTrigger.InstaKill,            5f },
         { SpeechTrigger.Revived,              3f },
-        { SpeechTrigger.LowAmmo,             60f },
-        { SpeechTrigger.OutOfAmmo,           45f },
+        { SpeechTrigger.LowAmmo,                   60f },
+        { SpeechTrigger.OutOfAmmo,                 45f },
+        { SpeechTrigger.WallBuyInsufficientFunds,  15f },
+        { SpeechTrigger.WallBuyPurchase,            5f },
     };
 
     // ---------------------------------------------------------------------------
@@ -176,6 +180,16 @@ public class CharacterSystem : MonoBehaviour
                 "SHIT! Outta gun juice",
                 "FUCK! Can't blow shit up without ammo!",
             },
+            [SpeechTrigger.WallBuyInsufficientFunds] = new[]
+            {
+                "Gotta kill some freak bags for the points!",
+                "Not enough cash! Get back out there!",
+            },
+            [SpeechTrigger.WallBuyPurchase] = new[]
+            {
+                "Alright, I'm buying this bad boy!",
+                "World's best weapon, world's finest soldier.",
+            },
         },
 
         [Character.Nikolai] = new()
@@ -263,6 +277,16 @@ public class CharacterSystem : MonoBehaviour
                 "I feel empty... SHIT! I AM EMPTY!",
                 "Where is ammo? Nikolai is in deep shit!",
                 "I'm out of ammo! I'm going for a drink.",
+            },
+            [SpeechTrigger.WallBuyInsufficientFunds] = new[]
+            {
+                "I need more money first, why do we not share the points?",
+                "I require more money.",
+            },
+            [SpeechTrigger.WallBuyPurchase] = new[]
+            {
+                "Da, Nikolai will take this.",
+                "Soviet war machine approves this purchase!",
             },
         },
 
@@ -369,6 +393,16 @@ public class CharacterSystem : MonoBehaviour
                 "Without ammo, I cannot achieve victory.",
                 "The emptiness of my weapons displeases me.",
             },
+            [SpeechTrigger.WallBuyInsufficientFunds] = new[]
+            {
+                "My wallet grows thin.",
+                "I cannot afford this! Kill more!",
+            },
+            [SpeechTrigger.WallBuyPurchase] = new[]
+            {
+                "This weapon has honor.",
+                "A worthy purchase.",
+            },
         },
 
         [Character.Richtofen] = new()
@@ -456,6 +490,16 @@ public class CharacterSystem : MonoBehaviour
                 "There is... NOTHING left!",
                 "Scheisse, mein veapon, Scheisse!!",
                 "Without bullets there can be no bullet wounds!",
+            },
+            [SpeechTrigger.WallBuyInsufficientFunds] = new[]
+            {
+                "I require more money!",
+                "Insufficient! I need more points!",
+            },
+            [SpeechTrigger.WallBuyPurchase] = new[]
+            {
+                "Excellent choice! Stand back, please.",
+                "Heehee! Mine now!",
             },
         },
     };

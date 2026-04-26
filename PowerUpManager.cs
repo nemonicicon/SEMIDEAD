@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using BepInEx.Logging;
-using ExitGames.Client.Photon;
 using HarmonyLib;
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
 namespace SEMIDEAD;
@@ -32,13 +29,6 @@ public class PowerUpManager : MonoBehaviour
     private const float TimedEffectDuration = 30f;
     private const float OrbDropChance       = 0.10f;
 
-    private const byte OrbSpawnEventCode   = 44;
-    private const byte OrbDestroyEventCode = 45;
-
-    private static int _orbIdCounter = 0;
-    private static readonly Dictionary<int, GameObject> _clientOrbs = new();
-    private static OrbVisualListener? _orbListener;
-
     // ---------------------------------------------------------------------------
     // Lifecycle
     // ---------------------------------------------------------------------------
@@ -62,8 +52,20 @@ public class PowerUpManager : MonoBehaviour
     }
 
     // ---------------------------------------------------------------------------
-    // Color / size helpers
+    // Orb prefab paths — InstantiateRoomObject paths confirmed from playtest logs.
+    // Small/Medium/Big use enemy valuable orbs (soul orbs) which are real Photon
+    // room objects visible to all clients. InstaKill uses the Wizard Bird Skull
+    // level valuable for a distinct skull visual.
     // ---------------------------------------------------------------------------
+
+    private static string OrbPrefabPath(PowerUpType t) => t switch
+    {
+        PowerUpType.MaxAmmo      => "Valuables/Enemy Valuable - Small",
+        PowerUpType.DoublePoints => "Valuables/Enemy Valuable - Medium",
+        PowerUpType.Nuke         => "Valuables/Enemy Valuable - Big",
+        PowerUpType.InstaKill    => "Valuables/01 Tiny/Valuable Wizard Bird Skull",
+        _                        => "Valuables/Enemy Valuable - Small",
+    };
 
     internal static Color OrbColor(PowerUpType t) => t switch
     {
@@ -75,89 +77,10 @@ public class PowerUpManager : MonoBehaviour
     };
 
     // ---------------------------------------------------------------------------
-    // Orb visual sync — Photon events 44 (spawn) and 45 (destroy) keep a local
-    // colored sphere visible on all clients. No room object needed; pickup logic
-    // runs host-side only. Pattern mirrors ShotgunExplosionPatch (event 43).
-    // ---------------------------------------------------------------------------
-
-    public static void RegisterOrbListener()
-    {
-        if (_orbListener != null) return;
-        if (!PhotonNetwork.IsConnected) return;
-        _orbListener = new OrbVisualListener();
-        PhotonNetwork.AddCallbackTarget(_orbListener);
-    }
-
-    internal static void RaiseOrbDestroy(int orbId)
-    {
-        if (!SemiFunc.IsMultiplayer()) return;
-        PhotonNetwork.RaiseEvent(
-            OrbDestroyEventCode,
-            orbId,
-            new RaiseEventOptions { Receivers = ReceiverGroup.Others },
-            SendOptions.SendReliable);
-    }
-
-    private class OrbVisualListener : IOnEventCallback
-    {
-        public void OnEvent(EventData ev)
-        {
-            if (SemiFunc.IsMasterClientOrSingleplayer()) return; // host handles its own visuals
-
-            if (ev.Code == OrbSpawnEventCode)
-            {
-                var data   = (object[])ev.CustomData;
-                int orbId  = (int)data[0];
-                var pos    = (Vector3)data[1];
-                var type   = (PowerUpType)(int)data[2];
-
-                var go = new GameObject($"SEMIDEAD_PowerUpOrb_Client_{orbId}");
-                go.transform.position = pos;
-                AddOrbVisual(go, type);
-                _clientOrbs[orbId] = go;
-                Logger.LogInfo($"[PowerUpManager] Client orb {orbId} ({type}) visual spawned at {pos}.");
-            }
-            else if (ev.Code == OrbDestroyEventCode)
-            {
-                int orbId = (int)ev.CustomData;
-                if (_clientOrbs.TryGetValue(orbId, out var go))
-                {
-                    Object.Destroy(go);
-                    _clientOrbs.Remove(orbId);
-                    Logger.LogInfo($"[PowerUpManager] Client orb {orbId} visual destroyed.");
-                }
-            }
-        }
-    }
-
-    private static void AddOrbVisual(GameObject parent, PowerUpType type)
-    {
-        Color color = OrbColor(type);
-
-        var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        Object.Destroy(sphere.GetComponent<Collider>());
-        sphere.transform.SetParent(parent.transform);
-        sphere.transform.localPosition = Vector3.zero;
-        sphere.transform.localScale    = Vector3.one * 0.4f;
-        var mat = new Material(Shader.Find("Standard"));
-        mat.color = color;
-        mat.EnableKeyword("_EMISSION");
-        mat.SetColor("_EmissionColor", color * 2f);
-        sphere.GetComponent<MeshRenderer>().material = mat;
-
-        var lightGo = new GameObject("OrbLight");
-        lightGo.transform.SetParent(parent.transform);
-        lightGo.transform.localPosition = Vector3.zero;
-        var lt = lightGo.AddComponent<Light>();
-        lt.type      = LightType.Point;
-        lt.color     = color;
-        lt.intensity = 2f;
-        lt.range     = 4f;
-    }
-
-    // ---------------------------------------------------------------------------
-    // Orb drop — creates a local host-side orb with visual, then broadcasts the
-    // visual to clients via Photon event 44. No room object, no valuable prefab.
+    // Orb drop — spawns a real Photon room object visible to all clients.
+    // Uses R.E.P.O.'s enemy valuable orb prefabs (soul orbs) so clients see the
+    // native orb visual without any custom listener. Host adds PowerUpOrb for
+    // proximity detection; PhotonNetwork.Destroy removes it on all clients.
     // ---------------------------------------------------------------------------
 
     public static void TryDropOrb(Vector3 deathPos)
@@ -173,27 +96,37 @@ public class PowerUpManager : MonoBehaviour
 
         if (Instance == null) { Logger.LogWarning("[PowerUpManager] Instance null — skipping orb."); return; }
 
-        PowerUpType type    = (PowerUpType)Random.Range(0, 4);
-        int         orbId   = _orbIdCounter++;
+        PowerUpType type     = (PowerUpType)Random.Range(0, 4);
         Vector3     spawnPos = deathPos + Vector3.up * 0.5f;
+        string      path     = OrbPrefabPath(type);
 
-        Logger.LogInfo($"[PowerUpManager] Dropping {type} orb (id={orbId}) at {spawnPos}.");
+        Logger.LogInfo($"[PowerUpManager] Dropping {type} orb — path '{path}', pos {spawnPos}.");
 
-        var go = new GameObject($"SEMIDEAD_PowerUpOrb_{orbId}");
-        go.transform.position = spawnPos;
-        AddOrbVisual(go, type);
-        var orb = go.AddComponent<PowerUpOrb>();
-        orb.Type  = type;
-        orb.OrbId = orbId;
-
+        GameObject go;
         if (SemiFunc.IsMultiplayer())
-            PhotonNetwork.RaiseEvent(
-                OrbSpawnEventCode,
-                new object[] { orbId, spawnPos, (int)type },
-                new RaiseEventOptions { Receivers = ReceiverGroup.Others },
-                SendOptions.SendReliable);
+        {
+            go = PhotonNetwork.InstantiateRoomObject(path, spawnPos, Quaternion.identity);
+        }
+        else
+        {
+            var prefab = Resources.Load<GameObject>(path);
+            if (prefab == null)
+            {
+                Logger.LogWarning($"[PowerUpManager] Prefab not found at '{path}' — skipping orb.");
+                return;
+            }
+            go = Object.Instantiate(prefab, spawnPos, Quaternion.identity);
+        }
 
-        Logger.LogInfo($"[PowerUpManager] Orb {orbId} ({type}) spawned.");
+        if (go == null)
+        {
+            Logger.LogWarning($"[PowerUpManager] InstantiateRoomObject returned null for '{path}'.");
+            return;
+        }
+
+        var orb = go.AddComponent<PowerUpOrb>();
+        orb.Type = type;
+        Logger.LogInfo($"[PowerUpManager] {type} orb spawned.");
     }
 
     // ---------------------------------------------------------------------------

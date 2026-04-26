@@ -1,18 +1,18 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace SEMIDEAD;
 
 /// <summary>
-/// Host-side pickup logic attached to a Photon-spawned game item.
+/// Host-side pickup logic attached to a Photon room object (enemy valuable orb prefab).
 /// Detects when a player walks within PickupRadius and activates the power-up.
-/// Destroying the orb via PhotonNetwork.Destroy removes it on all clients.
+/// PhotonNetwork.Destroy removes the room object on all clients simultaneously.
 /// </summary>
 public class PowerUpOrb : MonoBehaviour
 {
-    public PowerUpType Type  { get; set; }
-    public int         OrbId { get; set; }
+    public PowerUpType Type { get; set; }
 
-    private const float PickupRadius = 2.5f; // > normal grab range (~2 f) so we intercept first
+    private const float PickupRadius = 2.5f;
     private const float Lifetime     = 30f;
 
     private float _remaining;
@@ -61,7 +61,9 @@ public class PowerUpOrb : MonoBehaviour
 
     private void DestroyOrb()
     {
-        PowerUpManager.RaiseOrbDestroy(OrbId);
-        Destroy(gameObject);
+        if (SemiFunc.IsMultiplayer())
+            PhotonNetwork.Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 }

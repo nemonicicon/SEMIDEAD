@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BepInEx.Logging;
+using HarmonyLib;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,42 +9,65 @@ using UnityEngine.AI;
 namespace SEMIDEAD;
 
 /// <summary>
-/// Spawns weapon purchase zones at random NavMesh-valid LevelPoints each gameplay level.
+/// Spawns three weapon-purchase stations each gameplay level.
+/// Gun pool: Shotgun ($500), Shockwave/Ray Gun ($1000), Laser/Photon Blaster ($1000).
 ///
-/// Flow:
-///   - OnLevelSetup() places StationCount zones after the level generates.
-///   - Each zone picks a random gun from itemDictionary (same pool as MysteryBox).
-///   - Host polls all player positions each frame.
-///   - Player entering a zone sees a WaveHUD prompt showing the gun name + cost.
-///   - After DwellTime seconds in the zone, SURPLUS is deducted and the gun spawns
-///     at the player's feet. PlayerCooldown prevents instant re-purchase.
+/// Each station spawns a physical display gun (Photon room object) visible to all clients.
+/// Host detects player proximity, fires insufficient-funds TTS (rate-limited 15 s), or
+/// starts a 5-second countdown purchase. Purchased gun spawns at the buyer's feet.
 ///
-/// Host-only: proximity detection and SURPLUS deduction are authoritative on the host.
-/// WaveHUD buy prompt is only visible to the host player.
-/// Gun spawning uses PhotonNetwork.InstantiateRoomObject so all clients see it.
+/// Display guns that drift > 2 units from their spawn position are destroyed and respawned
+/// every 2 s (handles client grabs). Host-side grabDisableTimer prevents the host from
+/// accidentally picking up display guns.
 /// </summary>
 public class WallBuy : MonoBehaviour
 {
     public static WallBuy? Instance { get; private set; }
     private static ManualLogSource Logger => SEMIDEAD.Logger;
 
-    private const int   GunCost       = 500;
-    private const float BuyRadius     = 3f;
-    private const float DwellTime     = 2f;
-    private const float PlayerCooldown = 10f;
-    private const int   StationCount  = 3;
+    private const float BuyRadius      = 3f;
+    private const float PlayerCooldown = 15f;
+    private const int   StationCount   = 3;
 
-    private readonly struct Station
+    private class Station
     {
-        public readonly Vector3 Position;
-        public readonly Item    GunItem;
-        public Station(Vector3 pos, Item gun) { Position = pos; GunItem = gun; }
+        public readonly Vector3    Position;
+        public readonly Item       GunItem;
+        public readonly int        Cost;
+        public readonly string     DisplayName;
+        public          GameObject? DisplayGun;
+
+        public Station(Vector3 pos, Item gun)
+        {
+            Position    = pos;
+            GunItem     = gun;
+            Cost        = ResolveCost(gun);
+            DisplayName = ResolveDisplayName(gun);
+        }
+
+        private static int ResolveCost(Item gun)
+        {
+            string n = gun.itemName;
+            if (n.IndexOf("Shockwave", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                n.IndexOf("Laser",     System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return 1000;
+            return 500;
+        }
+
+        private static string ResolveDisplayName(Item gun)
+        {
+            string n = gun.itemName;
+            if (n.IndexOf("Shockwave", System.StringComparison.OrdinalIgnoreCase) >= 0) return "RAY GUN";
+            if (n.IndexOf("Laser",     System.StringComparison.OrdinalIgnoreCase) >= 0) return "PHOTON BLASTER";
+            return "SHOTGUN";
+        }
     }
 
-    private readonly List<Station>                       _stations   = new();
-    private readonly Dictionary<PlayerAvatar, float>     _dwellTimers = new();
-    private readonly Dictionary<PlayerAvatar, float>     _cooldowns   = new();
-    private bool _stationsSynced = false;
+    private readonly List<Station>                   _stations          = new();
+    private readonly Dictionary<PlayerAvatar, float> _purchaseCooldowns = new();
+    private readonly Dictionary<PlayerAvatar, float> _insFundsCooldowns = new();
+    private readonly Dictionary<PlayerAvatar, int>   _lastNearStation   = new();
+    private readonly HashSet<int>                    _activeCountdowns  = new();
 
     // ---------------------------------------------------------------------------
     // Lifecycle
@@ -73,14 +97,18 @@ public class WallBuy : MonoBehaviour
 
     public void OnLevelSetup()
     {
-        _stations.Clear();
-        _dwellTimers.Clear();
-        _cooldowns.Clear();
-        _stationsSynced = false;
-        WaveHUD.ClearBuyPrompt();
+        StopAllCoroutines();
 
-        // Wall buy temporarily disabled — uncomment below to re-enable.
-        return;
+        if (SemiFunc.IsMasterClientOrSingleplayer())
+            foreach (var s in _stations)
+                if (s.DisplayGun != null) DestroyDisplayGun(s.DisplayGun);
+
+        _stations.Clear();
+        _purchaseCooldowns.Clear();
+        _insFundsCooldowns.Clear();
+        _lastNearStation.Clear();
+        _activeCountdowns.Clear();
+        WaveHUD.ClearBuyPrompt();
 
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
         if (!IsGameplayLevel()) return;
@@ -88,14 +116,16 @@ public class WallBuy : MonoBehaviour
         StartCoroutine(PlaceStationsAfterLoad());
     }
 
+    // ---------------------------------------------------------------------------
+    // Station placement
+    // ---------------------------------------------------------------------------
+
     private IEnumerator PlaceStationsAfterLoad()
     {
         while (LevelGenerator.Instance == null || !LevelGenerator.Instance.Generated)
             yield return null;
         if (!IsGameplayLevel()) yield break;
 
-        // LevelPoints are populated asynchronously after Generated becomes true.
-        // Poll until at least 2 non-truck points exist or 12s elapses.
         float waited = 0f;
         List<LevelPoint> all;
         do
@@ -108,16 +138,16 @@ public class WallBuy : MonoBehaviour
 
         if (!IsGameplayLevel()) yield break;
 
-        // Build gun pool.
+        // Build allowed gun pool.
         var guns = new List<Item>();
         var dict = StatsManager.instance?.itemDictionary;
         if (dict != null)
             foreach (Item entry in dict.Values)
-                if (entry.itemType == SemiFunc.itemType.gun) guns.Add(entry);
+                if (IsAllowedGun(entry)) guns.Add(entry);
 
         if (guns.Count == 0)
         {
-            Logger.LogWarning("[WallBuy] No gun items in itemDictionary — no stations placed.");
+            Logger.LogWarning("[WallBuy] No allowed guns found in itemDictionary — no stations placed.");
             yield break;
         }
 
@@ -130,27 +160,21 @@ public class WallBuy : MonoBehaviour
         var candidates = new List<LevelPoint>(all.Count);
         foreach (LevelPoint pt in all)
             if (!pt.Truck) candidates.Add(pt);
-
-        Logger.LogInfo($"[WallBuy] LevelPoints: {all.Count} total, {candidates.Count} non-truck (after {waited:F1}s).");
-
         if (candidates.Count == 0) candidates = all;
 
-        // Fisher-Yates shuffle for random selection.
         for (int i = candidates.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
             (candidates[i], candidates[j]) = (candidates[j], candidates[i]);
         }
 
-        // Collect occupied positions to enforce minimum spacing.
-        // Starts with the MysteryBox so wall buy stations don't spawn on top of it.
-        const float MinSpacingSq = 25f; // 5 unit minimum (reduced from 10 — levels may be compact)
+        const float MinSpacingSq = 25f;
         var occupied = new List<Vector3>();
         if (MysteryBox.ActiveBoxPosition.HasValue)
-        {
             occupied.Add(MysteryBox.ActiveBoxPosition.Value);
-            Logger.LogInfo($"[WallBuy] MysteryBox occupied slot at {MysteryBox.ActiveBoxPosition.Value}.");
-        }
+
+        // Assign one gun type per station, no duplicate display names when possible.
+        var usedNames = new HashSet<string>();
 
         int placed = 0;
         int tried  = 0;
@@ -160,201 +184,291 @@ public class WallBuy : MonoBehaviour
             tried++;
             Vector3 pos = pt.transform.position;
 
-            // Snap Y to NavMesh if possible; fall back to raw LevelPoint position.
-            bool navHit = NavMesh.SamplePosition(pos, out NavMeshHit hit, 10f, NavMesh.AllAreas);
-            if (navHit) pos = hit.position;
+            if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 10f, NavMesh.AllAreas))
+                pos = hit.position;
 
-            // Skip if too close to MysteryBox or another station.
             bool tooClose = false;
             foreach (Vector3 occ in occupied)
-            {
-                float dSq = (pos - occ).sqrMagnitude;
-                if (dSq < MinSpacingSq) { tooClose = true; break; }
-            }
+                if ((pos - occ).sqrMagnitude < MinSpacingSq) { tooClose = true; break; }
 
-            Logger.LogInfo($"[WallBuy] Candidate {tried}: pos={pos} navHit={navHit} tooClose={tooClose}");
-
+            Logger.LogInfo($"[WallBuy] Candidate {tried}: pos={pos} tooClose={tooClose}");
             if (tooClose) continue;
 
             occupied.Add(pos);
-            Item gun = guns[Random.Range(0, guns.Count)];
-            _stations.Add(new Station(pos, gun));
-            Logger.LogInfo($"[WallBuy] Station {placed + 1}: {gun.itemName} at {pos}");
+
+            // Prefer a gun whose display name hasn't been used yet.
+            Item gun = PickGun(guns, usedNames);
+            usedNames.Add(new Station(pos, gun).DisplayName);
+
+            var station = new Station(pos, gun);
+            _stations.Add(station);
+            Logger.LogInfo($"[WallBuy] Station {placed + 1}: {station.DisplayName} (${station.Cost}) at {pos}");
             placed++;
         }
 
         Logger.LogInfo($"[WallBuy] {placed} station(s) placed (tried {tried} candidate(s)).");
 
-        if (SemiFunc.IsMultiplayer())
-            SyncStationsToRoomProperties();
+        for (int i = 0; i < _stations.Count; i++)
+        {
+            SpawnDisplayGun(i);
+            StartCoroutine(DisplayGunRespawnCheck(i));
+        }
+    }
+
+    private static Item PickGun(List<Item> guns, HashSet<string> usedNames)
+    {
+        foreach (Item g in guns)
+        {
+            string dn = new Station(Vector3.zero, g).DisplayName;
+            if (!usedNames.Contains(dn)) return g;
+        }
+        return guns[Random.Range(0, guns.Count)];
     }
 
     // ---------------------------------------------------------------------------
-    // Per-frame proximity check (host-only)
+    // Per-frame update (host-only)
     // ---------------------------------------------------------------------------
 
     private void Update()
     {
-        if (SemiFunc.IsMasterClientOrSingleplayer())
-            HostUpdate();
-        else if (SemiFunc.IsMultiplayer())
-            ClientHudUpdate();
+        if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
+        HostUpdate();
     }
 
-    // Full host logic: proximity detection, dwell timers, purchase, HUD.
     private void HostUpdate()
     {
         if (_stations.Count == 0) return;
 
+        // Prevent host from grabbing display guns.
+        foreach (var s in _stations)
+        {
+            if (s.DisplayGun == null) continue;
+            foreach (var pgo in s.DisplayGun.GetComponentsInChildren<PhysGrabObject>())
+                Traverse.Create(pgo).Field("grabDisableTimer").SetValue(0.5f);
+        }
+
         var players = SemiFunc.PlayerGetList();
         if (players == null) return;
 
-        PlayerAvatar? promptPlayer    = null;
-        int           promptStation   = -1;
-        float         promptDwell     = 0f;
+        PlayerAvatar? promptPlayer  = null;
+        int           promptStation = -1;
 
         foreach (PlayerAvatar player in players)
         {
-            if (player == null || player.isDisabled) continue;
-
-            int nearStation = GetNearestStation(player.transform.position);
-
-            if (nearStation < 0)
+            if (player == null || player.isDisabled)
             {
-                _dwellTimers.Remove(player);
+                if (player != null) _lastNearStation.Remove(player);
                 continue;
             }
 
-            // Skip if on cooldown.
-            if (_cooldowns.TryGetValue(player, out float coolUntil) && Time.time < coolUntil)
-                continue;
+            int nearStation = GetNearestStation(player.transform.position);
+            _lastNearStation.TryGetValue(player, out int prevStation);
+            bool justEntered = nearStation >= 0 && nearStation != prevStation;
+            _lastNearStation[player] = nearStation;
 
-            if (!_dwellTimers.TryGetValue(player, out float dwell))
-                dwell = 0f;
-            dwell += Time.deltaTime;
-            _dwellTimers[player] = dwell;
+            if (nearStation < 0) continue;
 
-            // Track whichever player has been dwelling longest for the HUD prompt.
-            if (dwell > promptDwell)
+            // Show prompt for first player near a station without an active countdown.
+            if (promptPlayer == null && !_activeCountdowns.Contains(nearStation))
             {
-                promptDwell   = dwell;
                 promptPlayer  = player;
                 promptStation = nearStation;
             }
 
-            if (dwell >= DwellTime)
+            // Skip if countdown already running on this station.
+            if (_activeCountdowns.Contains(nearStation)) continue;
+
+            // Skip if on purchase cooldown.
+            if (_purchaseCooldowns.TryGetValue(player, out float coolUntil) && Time.time < coolUntil) continue;
+
+            if (!justEntered) continue;
+
+            Station s    = _stations[nearStation];
+            int     bal  = StatsManager.instance?.GetRunStatCurrency() ?? 0;
+
+            if (bal < s.Cost)
             {
-                _dwellTimers.Remove(player);
-                _cooldowns[player] = Time.time + PlayerCooldown;
-                Purchase(player, nearStation);
+                if (!_insFundsCooldowns.TryGetValue(player, out float iCool) || Time.time >= iCool)
+                {
+                    _insFundsCooldowns[player] = Time.time + 15f;
+                    CharacterSystem.Instance?.TriggerSpeech(player, SpeechTrigger.WallBuyInsufficientFunds);
+                    Logger.LogInfo($"[WallBuy] {player.playerName} insufficient funds (${bal}/${s.Cost}) for {s.DisplayName}.");
+                }
+            }
+            else
+            {
+                _activeCountdowns.Add(nearStation);
+                StartCoroutine(PurchaseCountdown(player, nearStation));
             }
         }
 
-        // Update WaveHUD buy prompt for whichever player is deepest in a zone.
-        if (promptPlayer != null && promptStation >= 0 && promptStation < _stations.Count)
+        if (promptPlayer != null && promptStation >= 0)
         {
             Station s = _stations[promptStation];
-            float remaining = Mathf.Max(0f, DwellTime - promptDwell);
-            WaveHUD.ShowBuyPrompt(
-                $"WALL BUY: {s.GunItem.itemName.ToUpper()}  —  ${GunCost}  ({Mathf.CeilToInt(remaining)}s)");
+            WaveHUD.ShowBuyPrompt($"WALL BUY: {s.DisplayName}  —  ${s.Cost}");
+        }
+        else if (!AnyCountdownRunning())
+        {
+            WaveHUD.ClearBuyPrompt();
+        }
+    }
+
+    private bool AnyCountdownRunning() => _activeCountdowns.Count > 0;
+
+    // ---------------------------------------------------------------------------
+    // Purchase countdown coroutine
+    // ---------------------------------------------------------------------------
+
+    private IEnumerator PurchaseCountdown(PlayerAvatar player, int stationIndex)
+    {
+        Station s = _stations[stationIndex];
+        CharacterSystem.Instance?.TriggerSpeech(player, SpeechTrigger.WallBuyPurchase);
+        Logger.LogInfo($"[WallBuy] {player.playerName} starting {s.DisplayName} countdown.");
+
+        for (int i = 5; i >= 1; i--)
+        {
+            WaveHUD.ShowBuyPrompt($"BUYING {s.DisplayName}: ${s.Cost}  —  {i}...");
+            yield return new WaitForSeconds(1f);
+
+            // Cancel if player left the zone.
+            if ((player.transform.position - s.Position).sqrMagnitude > BuyRadius * BuyRadius)
+            {
+                Logger.LogInfo($"[WallBuy] {player.playerName} left zone — countdown cancelled.");
+                _activeCountdowns.Remove(stationIndex);
+                WaveHUD.ClearBuyPrompt();
+                yield break;
+            }
+
+            // Cancel if funds dropped (e.g. another purchase on same frame).
+            if ((StatsManager.instance?.GetRunStatCurrency() ?? 0) < s.Cost)
+            {
+                Logger.LogInfo($"[WallBuy] {player.playerName} lost funds mid-countdown — cancelled.");
+                _activeCountdowns.Remove(stationIndex);
+                CharacterSystem.Instance?.TriggerSpeech(player, SpeechTrigger.WallBuyInsufficientFunds);
+                WaveHUD.ClearBuyPrompt();
+                yield break;
+            }
+        }
+
+        _activeCountdowns.Remove(stationIndex);
+        ExecutePurchase(player, stationIndex);
+    }
+
+    private void ExecutePurchase(PlayerAvatar player, int stationIndex)
+    {
+        if (stationIndex >= _stations.Count) return;
+        Station s = _stations[stationIndex];
+
+        var stats = StatsManager.instance;
+        if (stats == null) return;
+
+        int balance = stats.GetRunStatCurrency();
+        if (balance < s.Cost)
+        {
+            Logger.LogWarning($"[WallBuy] ExecutePurchase final-check failed for {player.playerName}.");
+            return;
+        }
+
+        int newBalance = balance - s.Cost;
+        stats.runStats["currency"] = newBalance;
+        PunManager.instance.UpdateStat("runStats", "currency", newBalance);
+
+        Vector3 spawnPos = player.transform.position + Vector3.up * 0.5f;
+        if (SemiFunc.IsMultiplayer())
+        {
+            PhotonNetwork.InstantiateRoomObject(s.GunItem.prefab.ResourcePath, spawnPos, Quaternion.identity);
         }
         else
         {
-            WaveHUD.ClearBuyPrompt();
+            var prefab = s.GunItem.prefab.Prefab;
+            if (prefab != null)
+                Object.Instantiate(prefab, spawnPos, Quaternion.identity);
+            else
+                Logger.LogWarning($"[WallBuy] prefab.Prefab null for '{s.GunItem.itemName}'.");
         }
+
+        _purchaseCooldowns[player] = Time.time + PlayerCooldown;
+        Logger.LogInfo($"[WallBuy] {player.playerName} bought {s.DisplayName} — ${newBalance} remaining.");
+        WaveHUD.ShowBuyPrompt($"PURCHASED: {s.DisplayName}");
     }
 
-    // Non-host client: load station positions from room properties (once per level),
-    // then show/clear the buy prompt based on the local player's position.
-    // Purchase logic stays host-only; this is HUD display only.
-    private void ClientHudUpdate()
+    // ---------------------------------------------------------------------------
+    // Display gun management
+    // ---------------------------------------------------------------------------
+
+    private void SpawnDisplayGun(int stationIndex)
     {
-        if (!_stationsSynced)
-            TryLoadStationsFromRoomProperties();
+        if (stationIndex >= _stations.Count) return;
+        Station s   = _stations[stationIndex];
+        Vector3 pos = s.Position + Vector3.up * 1.2f;
+        Quaternion rot = Quaternion.Euler(0f, Random.Range(0f, 360f), 15f);
 
-        if (_stations.Count == 0) return;
-
-        // Find the local player (the one owned by this Photon client).
-        PlayerAvatar? localPlayer = null;
-        var players = SemiFunc.PlayerGetList();
-        if (players == null) return;
-        foreach (PlayerAvatar p in players)
+        GameObject go;
+        if (SemiFunc.IsMultiplayer())
         {
-            if (p == null) continue;
-            var pv = p.GetComponent<PhotonView>();
-            if (pv != null && pv.IsMine) { localPlayer = p; break; }
+            go = PhotonNetwork.InstantiateRoomObject(s.GunItem.prefab.ResourcePath, pos, rot);
+        }
+        else
+        {
+            var prefab = s.GunItem.prefab.Prefab;
+            if (prefab == null)
+            {
+                Logger.LogWarning($"[WallBuy] Display gun prefab null for station {stationIndex}.");
+                return;
+            }
+            go = Object.Instantiate(prefab, pos, rot);
         }
 
-        if (localPlayer == null || localPlayer.isDisabled)
+        if (go == null)
         {
-            WaveHUD.ClearBuyPrompt();
+            Logger.LogWarning($"[WallBuy] Display gun spawn failed for station {stationIndex}.");
             return;
         }
 
-        int nearStation = GetNearestStation(localPlayer.transform.position);
-        if (nearStation < 0)
-        {
-            WaveHUD.ClearBuyPrompt();
-            return;
-        }
-
-        Station s = _stations[nearStation];
-        WaveHUD.ShowBuyPrompt($"WALL BUY: {s.GunItem.itemName.ToUpper()}  —  ${GunCost}");
+        go.name = "SEMIDEAD_WallBuy_Display";
+        s.DisplayGun = go;
+        Logger.LogInfo($"[WallBuy] Display gun spawned for station {stationIndex} ({s.DisplayName}) at {pos}.");
     }
 
-    // Serialise station positions + gun names into a Photon room property
-    // so non-host clients can load them for HUD display.
-    private void SyncStationsToRoomProperties()
+    private IEnumerator DisplayGunRespawnCheck(int stationIndex)
     {
-        var parts = new System.Collections.Generic.List<string>(_stations.Count);
-        foreach (Station s in _stations)
-            parts.Add($"{s.Position.x:F3}|{s.Position.y:F3}|{s.Position.z:F3}|{s.GunItem.itemName}");
+        while (IsGameplayLevel())
+        {
+            yield return new WaitForSeconds(2f);
+            if (stationIndex >= _stations.Count) yield break;
 
-        string data = string.Join(";", parts);
-        PhotonNetwork.CurrentRoom?.SetCustomProperties(
-            new ExitGames.Client.Photon.Hashtable { { "WBStations", data } });
-        Logger.LogInfo($"[WallBuy] Synced {_stations.Count} station(s) to room properties.");
+            Station s = _stations[stationIndex];
+            if (s.DisplayGun == null)
+            {
+                SpawnDisplayGun(stationIndex);
+                continue;
+            }
+
+            Vector3 target = s.Position + Vector3.up * 1.2f;
+            if ((s.DisplayGun.transform.position - target).sqrMagnitude > 4f)
+            {
+                Logger.LogInfo($"[WallBuy] Display gun drifted — respawning station {stationIndex}.");
+                DestroyDisplayGun(s.DisplayGun);
+                s.DisplayGun = null;
+                yield return new WaitForSeconds(0.1f);
+                SpawnDisplayGun(stationIndex);
+            }
+        }
     }
 
-    // Called on non-host clients each Update() until stations are loaded.
-    private void TryLoadStationsFromRoomProperties()
+    private static void DestroyDisplayGun(GameObject go)
     {
-        var room = PhotonNetwork.CurrentRoom;
-        if (room == null) return;
-        if (!room.CustomProperties.TryGetValue("WBStations", out object val)) return;
-        if (val is not string data || string.IsNullOrEmpty(data)) return;
-
-        var dict = StatsManager.instance?.itemDictionary;
-        if (dict == null) return;
-
-        _stations.Clear();
-        foreach (string entry in data.Split(';'))
+        if (go == null) return;
+        if (SemiFunc.IsMultiplayer())
         {
-            // Format: "x|y|z|Gun Name" — LastIndexOf handles spaces in gun names.
-            int lastPipe = entry.LastIndexOf('|');
-            if (lastPipe < 0) continue;
-            string coordPart = entry.Substring(0, lastPipe);
-            string gunName   = entry.Substring(lastPipe + 1);
-
-            string[] coords = coordPart.Split('|');
-            if (coords.Length < 3) continue;
-            if (!float.TryParse(coords[0], System.Globalization.NumberStyles.Float,
-                    System.Globalization.CultureInfo.InvariantCulture, out float x)) continue;
-            if (!float.TryParse(coords[1], System.Globalization.NumberStyles.Float,
-                    System.Globalization.CultureInfo.InvariantCulture, out float y)) continue;
-            if (!float.TryParse(coords[2], System.Globalization.NumberStyles.Float,
-                    System.Globalization.CultureInfo.InvariantCulture, out float z)) continue;
-
-            Item? gun = null;
-            foreach (Item item in dict.Values)
-                if (item.itemName == gunName) { gun = item; break; }
-            if (gun == null) continue;
-
-            _stations.Add(new Station(new Vector3(x, y, z), gun));
+            var pv = go.GetComponent<PhotonView>();
+            if (pv != null) PhotonNetwork.Destroy(go);
+            else            Object.Destroy(go);
         }
-
-        _stationsSynced = true;
-        Logger.LogInfo($"[WallBuy] Client loaded {_stations.Count} station(s) from room properties.");
+        else
+        {
+            Object.Destroy(go);
+        }
     }
 
     // ---------------------------------------------------------------------------
@@ -369,40 +483,13 @@ public class WallBuy : MonoBehaviour
         return -1;
     }
 
-    private void Purchase(PlayerAvatar player, int stationIndex)
+    private static bool IsAllowedGun(Item item)
     {
-        if (stationIndex >= _stations.Count) return;
-        Station s = _stations[stationIndex];
-
-        var stats = StatsManager.instance;
-        if (stats == null) return;
-
-        int balance = stats.GetRunStatCurrency();
-        if (balance < GunCost)
-        {
-            Logger.LogInfo($"[WallBuy] {player.playerName} can't afford {s.GunItem.itemName} (${balance}/${GunCost}).");
-            WaveHUD.ShowBuyPrompt($"NOT ENOUGH SURPLUS — ${GunCost} required");
-            return;
-        }
-
-        int newBalance = balance - GunCost;
-        stats.runStats["currency"] = newBalance;
-        PunManager.instance.UpdateStat("runStats", "currency", newBalance);
-
-        Vector3 spawnPos = player.transform.position + Vector3.up * 0.5f;
-        if (SemiFunc.IsMultiplayer())
-            PhotonNetwork.InstantiateRoomObject(s.GunItem.prefab.ResourcePath, spawnPos, Quaternion.identity);
-        else
-        {
-            var prefab = s.GunItem.prefab.Prefab;
-            if (prefab != null)
-                Object.Instantiate(prefab, spawnPos, Quaternion.identity);
-            else
-                Logger.LogWarning($"[WallBuy] prefab.Prefab null for '{s.GunItem.itemName}'.");
-        }
-
-        Logger.LogInfo($"[WallBuy] {player.playerName} bought {s.GunItem.itemName} — ${newBalance} remaining.");
-        WaveHUD.ShowBuyPrompt($"PURCHASED: {s.GunItem.itemName.ToUpper()}");
+        if (item.itemType != SemiFunc.itemType.gun) return false;
+        string n = item.itemName;
+        return n.IndexOf("Shotgun",   System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+               n.IndexOf("Shockwave", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+               n.IndexOf("Laser",     System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     private static int NonTruckCount(List<LevelPoint>? pts)
