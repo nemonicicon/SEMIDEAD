@@ -319,7 +319,7 @@ static class MonkeyBombTruckSpawnPatch
 
         // Spawn one monkey per player, using separate ItemVolume slots from the end
         // (the last slot(s) are furthest from the pistol slot at index 0).
-        int playerCount = Mathf.Max(1, SemiFunc.PlayerGetList()?.Count ?? 1);
+        const int playerCount = 2;
 
         // Pre-fetch grenade icon once for all monkeys.
         UnityEngine.Sprite? grenadeIcon = null;

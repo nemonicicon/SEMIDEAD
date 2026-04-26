@@ -211,7 +211,7 @@ public class WaveManager : MonoBehaviour
         {
             ReviveSystem.Instance?.OnWaveStart();
             AnnouncerSystem.Instance?.OnWaveStart(_waveNumber);
-            if (_waveNumber == 1) CharacterSystem.Instance?.StartWaveOneSequence();
+            if (_waveNumber == 1) StartCoroutine(DelayedWaveOneSequence());
             WaveHUD.ShowWaveStart(_waveNumber, monsterCount);
             Announcer.SendBigMessage(
                 $"WAVE {_waveNumber}",
@@ -228,6 +228,12 @@ public class WaveManager : MonoBehaviour
             else
                 WaveSpawner.Instance?.SpawnWave(_waveNumber, monsterCount, false);
         }
+    }
+
+    private IEnumerator DelayedWaveOneSequence()
+    {
+        yield return new WaitForSeconds(45f);
+        CharacterSystem.Instance?.StartWaveOneSequence();
     }
 
     private IEnumerator ElsaWaveStart(int waveNumber, int monsterCount)

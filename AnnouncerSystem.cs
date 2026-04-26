@@ -376,7 +376,7 @@ static class TeamKillDetectionPatch
 [HarmonyPatch(typeof(HurtCollider), "PlayerHurt")]
 static class HurtColliderPlayerHurtPatch
 {
-    private const float ShooterWindow = 0.5f; // max seconds between shoot and hit landing
+    private const float ShooterWindow = 2.0f; // max seconds between shoot and hit landing
 
     // Prefix runs BEFORE the IsMine check inside PlayerHurt, so we capture
     // the victim on master client even though PlayerHurt would return early.
@@ -415,8 +415,8 @@ static class PlayerHealthHurtPatch
     private static void Postfix(PlayerHealth __instance, int enemyIndex)
     {
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
-        if (enemyIndex == -1) return;
-
+        // Record all damage (including enemyIndex=-1 tumble/fall-from-enemy paths)
+        // so enemy-caused deaths aren't misclassified as suicide.
         var avatar = Traverse.Create(__instance).Field("playerAvatar").GetValue<PlayerAvatar>();
         if (avatar != null)
             AnnouncerSystem.RecordEnemyHit(avatar);
@@ -431,8 +431,8 @@ static class PlayerHealthHurtOtherRPCPatch
     {
         // Only on master client — enemies run on master and call HurtOther(),
         // which sends HurtOtherRPC. This lets us track hits on non-host players.
+        // Record all damage including enemyIndex=-1 paths.
         if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
-        if (enemyIndex == -1) return;
 
         var avatar = Traverse.Create(__instance).Field("playerAvatar").GetValue<PlayerAvatar>();
         if (avatar != null)

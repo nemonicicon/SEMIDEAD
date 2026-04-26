@@ -148,10 +148,6 @@ public class WaveSpawner : MonoBehaviour
         // Capture position before the enemy object is destroyed.
         Vector3 deathPos = enemy.transform.position;
 
-        // Award SURPLUS before removing — remaining count passed so last-kill bonus works.
-        int remainingAfter = _waveEnemies.Count - 1;
-        WaveKillReward.OnWaveEnemyKilled(enemy, remainingAfter);
-
         // Roll for power-up orb drop.
         PowerUpManager.TryDropOrb(deathPos);
 

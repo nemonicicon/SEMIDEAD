@@ -20,6 +20,17 @@ namespace SEMIDEAD.Patches;
 ///    This fallback fires after the freeze delay if the event is missed.
 ///    Checks WaveEnemyTag so it is a no-op for non-wave enemies.
 /// </summary>
+[HarmonyPatch(typeof(EnemyParent), "Despawn")]
+static class EnemyParentDespawnPatch
+{
+    [HarmonyPrefix]
+    private static void Prefix(EnemyParent __instance)
+    {
+        if (__instance.Enemy?.Health != null)
+            __instance.Enemy.Health.spawnValuable = false;
+    }
+}
+
 [HarmonyPatch(typeof(EnemyHealth))]
 static class EnemyHealthPatch
 {
