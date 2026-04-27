@@ -4,21 +4,17 @@ using UnityEngine;
 namespace SEMIDEAD.Patches;
 
 /// <summary>
-/// Three patches on EnemyHealth:
+/// Patches on EnemyHealth:
 ///
 /// 1. InstaKill_Prefix — forces damage to 9999 when PowerUpManager.InstaKillActive.
-///    Runs on every enemy hit, so it affects both wave and native R.E.P.O. monsters.
 ///
-/// 2. DeathRPC_Postfix — fires CharacterSystem and AnnouncerSystem kill tracking.
-///    DeathRPC fires IMMEDIATELY when a kill is confirmed (before the freeze delay),
-///    so rapid kills register within the multi-kill window correctly.
-///    DeathRPC is master-only (SemiFunc.MasterOnlyRPC check inside), but our Postfix
-///    runs on all clients; the master-client guard is applied here.
+/// 2. DeathRPC_Prefix — sets spawnValuable=false on every enemy before DeathRPC runs,
+///    suppressing native soul orb drops globally. Belt-and-suspenders alongside
+///    WaveSpawner (sets it at spawn time) and EnemyParentDespawnPatch (sets it before Despawn).
 ///
-/// 3. DeathImpulseRPC_Postfix — fallback death hook for wave enemies.
-///    Primary path: WaveSpawner subscribes to EnemyHealth.onDeath UnityEvent.
-///    This fallback fires after the freeze delay if the event is missed.
-///    Checks WaveEnemyTag so it is a no-op for non-wave enemies.
+/// 3. DeathRPC_Postfix — fires CharacterSystem and AnnouncerSystem kill tracking.
+///
+/// 4. DeathImpulseRPC_Postfix — fallback death hook for wave enemies.
 /// </summary>
 [HarmonyPatch(typeof(EnemyParent), "Despawn")]
 static class EnemyParentDespawnPatch
@@ -39,6 +35,13 @@ static class EnemyHealthPatch
     {
         if (PowerUpManager.InstaKillActive)
             _damage = 9999;
+    }
+
+    // Suppress native soul orb drop before any orb-spawn logic in DeathRPC runs.
+    [HarmonyPrefix, HarmonyPatch("DeathRPC")]
+    private static void DeathRPC_Prefix(EnemyHealth __instance)
+    {
+        __instance.spawnValuable = false;
     }
 
     [HarmonyPostfix, HarmonyPatch("DeathRPC")]

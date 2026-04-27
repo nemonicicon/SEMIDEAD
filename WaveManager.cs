@@ -203,7 +203,7 @@ public class WaveManager : MonoBehaviour
 
         int playerCount   = SemiFunc.PlayerGetList()?.Count ?? 1;
         int monsterCount  = GetMonsterCount(_waveNumber, playerCount);
-        bool isElsaWave   = (_waveNumber % 5 == 0);
+        bool isElsaWave   = (_waveNumber % 5 == 3);
 
         Logger.LogInfo($"[WaveManager] ♪ Jingle ♪ — WAVE {_waveNumber} BEGINS ({monsterCount} monsters, {playerCount} players, elsa={isElsaWave})");
 
@@ -303,7 +303,11 @@ public class WaveManager : MonoBehaviour
 
     private static int GetMonsterCount(int wave, int playerCount)
     {
-        int scaling = Mathf.FloorToInt(playerCount * 1.5f);
-        return Mathf.Min(6 + wave + scaling, 12);
+        // Waves 1-5: gentle ramp, no player scaling — let players learn the map.
+        if (wave <= 5)
+            return Mathf.Min(3 + wave, 8); // 4, 5, 6, 7, 8
+
+        // Wave 6+: player-scaled, hard ramp.
+        return Mathf.Min(3 + wave + Mathf.FloorToInt(playerCount * 1.5f), 18);
     }
 }
