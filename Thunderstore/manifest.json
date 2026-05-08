@@ -1,6 +1,6 @@
 {
-    "name": "SEMIDEAD",
-    "version_number": "0.4.13",
+    "name": "Wave_Game_Mode",
+    "version_number": "1.0.0",
     "website_url": "https://github.com/nemonicicon/SEMIDEAD",
     "description": "Zombies wave survival for R.E.P.O. Waves, wall buys, mystery box, power ups, kill rewards, and more. Host-only - clients install nothing.",
     "dependencies": [
