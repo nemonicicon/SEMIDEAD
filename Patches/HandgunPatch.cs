@@ -14,7 +14,9 @@ namespace SEMIDEAD.Patches;
 ///    A static HashSet<ItemGun> guards against the postfix re-triggering on its
 ///    own burst shots.
 ///
-/// 2. 30-round magazine — Postfix on ItemBattery.Start() sets batteryBars = 30.
+/// 2. Zero recoil — Postfix on ItemGun.Start() sets gunRecoilForce = 0f.
+///
+/// 3. 30-round magazine — Postfix on ItemBattery.Start() sets batteryBars = 30.
 ///    Note: batteryBars > 100 breaks the formula (100/batteryBars = 0 in integer math),
 ///    so 100 is the practical maximum without patching the drain logic.
 /// </summary>
@@ -78,20 +80,17 @@ static class HandgunPatch
     }
 
     // ---------------------------------------------------------------------------
-    // 50% recoil reduction
+    // Zero recoil
     // ---------------------------------------------------------------------------
 
     [HarmonyPostfix, HarmonyPatch(typeof(ItemGun), "Start")]
     private static void GunStart_Postfix(ItemGun __instance)
     {
-        var attrs = __instance.GetComponent<ItemAttributes>();
-        bool isHandgun = attrs != null
-            ? attrs.instanceName.StartsWith(StartingPistol.HandgunName)
-            : __instance.gameObject.name.StartsWith("Item Gun Handgun");
-        if (!isHandgun) return;
+        if (!__instance.gameObject.name.StartsWith("Item Gun Handgun")) return;
 
-        __instance.gunRecoilForce *= 0.5f;
-        SEMIDEAD.Logger.LogInfo($"[HandgunPatch] MAG 60 recoil halved → {__instance.gunRecoilForce}");
+        __instance.gunRecoilForce = 0f;
+        __instance.cameraShakeMultiplier = 0f;
+        SEMIDEAD.Logger.LogInfo("[HandgunPatch] MAG 60 recoil + camera shake zeroed");
     }
 
     // ---------------------------------------------------------------------------

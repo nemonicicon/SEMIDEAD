@@ -63,7 +63,13 @@ public class StartingPistol : MonoBehaviour
         return go.AddComponent<StartingPistol>();
     }
 
-    public void OnLevelSetup() { }
+    public void OnLevelSetup()
+    {
+        if (!SemiFunc.IsMasterClientOrSingleplayer()) return;
+        StatsManager.instance.runStats["currency"] = 500;
+        PunManager.instance.UpdateStat("runStats", "currency", 500);
+        Logger.LogInfo("[StartingPistol] Starting currency set to $500.");
+    }
 
     // ---------------------------------------------------------------------------
     // Respawn — called from PlayerAvatarRespawnPatch.

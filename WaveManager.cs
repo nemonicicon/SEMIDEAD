@@ -238,6 +238,7 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator ElsaWaveStart(int waveNumber, int monsterCount)
     {
+        yield return new WaitForSeconds(3f); // let "WAVE N" TTS finish before Elsa line
         AnnouncerSystem.SpeakAllPlayers("FETCH ME THEIR SOULS!");
         yield return new WaitForSeconds(2f);
         WaveSpawner.Instance?.SpawnWave(waveNumber, monsterCount, true);

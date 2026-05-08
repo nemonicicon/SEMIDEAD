@@ -22,9 +22,9 @@ public static class WaveKillReward
     private static ManualLogSource Logger => SEMIDEAD.Logger;
 
     // Reward amounts — will be moved to host config in Phase 3.
-    private const int RewardStandard = 3;
-    private const int RewardFast     = 5;
-    private const int BonusLastEnemy = 8;
+    private const int RewardStandard = 50;
+    private const int RewardFast     = 100;
+    private const int BonusLastEnemy = 150;
 
     /// <summary>
     /// Called by WaveSpawner.OnWaveEnemyDied() before the enemy is removed from

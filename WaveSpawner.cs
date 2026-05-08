@@ -153,6 +153,9 @@ public class WaveSpawner : MonoBehaviour
 
         _waveEnemies.Remove(enemy);
 
+        // Award kill currency on master client.
+        WaveKillReward.OnWaveEnemyKilled(enemy, _waveEnemies.Count);
+
         // Remove from EnemyDirector.enemiesSpawned to keep the director list clean.
         EnemyDirector.instance?.enemiesSpawned.Remove(enemy);
 

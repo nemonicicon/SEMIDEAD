@@ -487,9 +487,11 @@ public class WallBuy : MonoBehaviour
     {
         if (item.itemType != SemiFunc.itemType.gun) return false;
         string n = item.itemName;
-        return n.IndexOf("Shotgun",   System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-               n.IndexOf("Shockwave", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-               n.IndexOf("Laser",     System.StringComparison.OrdinalIgnoreCase) >= 0;
+        if (n.IndexOf("C.A.R.T", System.StringComparison.OrdinalIgnoreCase) >= 0) return false;
+        return n.IndexOf("Shotgun",        System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+               n.IndexOf("Shockwave",      System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+               n.IndexOf("Laser",          System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+               n.IndexOf("Photon Blaster", System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     private static int NonTruckCount(List<LevelPoint>? pts)
