@@ -1,9 +1,9 @@
 {
     "name": "SEMIDEAD",
-    "version_number": "0.4.12",
+    "version_number": "0.4.13",
     "website_url": "https://github.com/nemonicicon/SEMIDEAD",
     "description": "Zombies wave survival for R.E.P.O. Waves, wall buys, mystery box, power ups, kill rewards, and more. Host-only - clients install nothing.",
     "dependencies": [
-        "BepInEx-BepInExPack-5.4.2100"
+        "BepInEx-BepInExPack-5.4.2305"
     ]
 }
