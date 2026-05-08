@@ -81,7 +81,7 @@ Dropped by wave enemies on death (10% chance). Walk over to activate — effect 
 - All downed players are automatically revived at wave start
 
 ### Character System
-Players are assigned characters (Dempsey, Nikolai, Takeo, Richtofen) and deliver kill quotes, wave-start speeches, and wall-buy reactions through R.E.P.O.'s TTS system.
+Players are assigned one of four characters (Tank, Nikolai, Warrior, Doctor) and deliver kill quotes, wave-start speeches, and wall-buy reactions through R.E.P.O.'s TTS system.
 
 ### Announcer
 - Multi-kill, killing spree, betrayal, last stand, and game over callouts
