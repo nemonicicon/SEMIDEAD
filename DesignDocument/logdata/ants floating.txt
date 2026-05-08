@@ -1,3 +1,0 @@
-ants floating
-need to be able to select ant then tell them where to go
-multiple small size different color vs larger fewer different color ants
