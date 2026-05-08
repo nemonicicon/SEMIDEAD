@@ -19,9 +19,9 @@ SEMIDEAD transforms every R.E.P.O. level into a wave survival map. Enemies spawn
 - 15-second grace period at level start to scout and prepare
 - 30-second intermission between waves
 - Escalating enemy counts — player-scaled at wave 6+
-- Special **Elsa rounds** on wave 3, 8, 13... ("FETCH ME THEIR SOULS!")
+- Special **Elsa rounds** on wave 3, 8, 13...
 - Wave timeout — enemies rush players if a wave drags on too long
-- Max Ammo power-up awarded to all players at the end of every wave
+- Full Reload awarded to all players at the end of every wave
 
 ### Starting Loadouts
 Each level begins with a round-specific weapon set:
@@ -45,9 +45,9 @@ Each level begins with a round-specific weapon set:
   - $50 standard kill
   - $100 fast variant kill
   - +$150 last-kill-of-wave bonus
-- Double Points power-up doubles all earnings for 30 seconds
+- Double Rewards power-up doubles all earnings for 30 seconds
 
-### Wall Buy Stations
+### Weapon Stations
 Three weapon purchase stations placed randomly each level:
 
 | Weapon | Price |
@@ -58,21 +58,21 @@ Three weapon purchase stations placed randomly each level:
 
 Stand near a station for 5 seconds to purchase. Insufficient funds trigger a character voice line.
 
-### Mystery Box
+### Weapon Cache
 - $500 per roll — random weapon from R.E.P.O.'s full weapon pool
-- ~20% Teddy Bear chance — box teleports to a new location on the map
+- ~20% Dud chance — cache teleports to a new location on the map
 
 ### Power Ups
 Dropped by wave enemies on death (10% chance). Walk over to activate — effect applies to the entire team:
 
 | Power Up | Effect |
 |---|---|
-| MAX AMMO | Full ammo restored for all players instantly |
-| DOUBLE POINTS | 2× SURPLUS earnings for 30 seconds |
-| INSTA KILL | One-hit kills for 30 seconds |
-| NUKE | Instantly kills all remaining wave enemies |
+| FULL RELOAD | Full ammo restored for all players instantly |
+| DOUBLE REWARDS | 2× SURPLUS earnings for 30 seconds |
+| ONE SHOT | One-hit kills for 30 seconds |
+| WIPE OUT | Instantly kills all remaining wave enemies |
 
-### Monkey Bomb
+### Cymbal Decoy
 - Attracts nearby enemies then explodes with AoE damage
 - One spawns per player per level
 
@@ -81,7 +81,7 @@ Dropped by wave enemies on death (10% chance). Walk over to activate — effect 
 - All downed players are automatically revived at wave start
 
 ### Character System
-Players are assigned one of four characters (Tank, Nikolai, Warrior, Doctor) and deliver kill quotes, wave-start speeches, and wall-buy reactions through R.E.P.O.'s TTS system.
+Players are assigned one of four characters (Tank, Viktor, Warrior, Doctor) and deliver kill quotes, wave-start speeches, and weapon station reactions through R.E.P.O.'s TTS system.
 
 ### Announcer
 - Multi-kill, killing spree, betrayal, last stand, and game over callouts
@@ -101,8 +101,8 @@ Players are assigned one of four characters (Tank, Nikolai, Warrior, Doctor) and
 
 ## Known Issues
 
-- MonkeyBomb cannot be armed or placed in inventory by client players (host only)
-- Mystery Box uses a placeholder visual (animal crate model)
+- Cymbal Decoy cannot be armed or placed in inventory by client players (host only)
+- Weapon Cache uses a placeholder visual (animal crate model)
 
 ---
 
