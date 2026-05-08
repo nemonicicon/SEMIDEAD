@@ -28,15 +28,15 @@ Each level begins with a round-specific weapon set:
 
 | Round | Weapons |
 |---|---|
-| 1 | RAY GUN + MAG 60 + Sword |
-| 2 | RAY GUN + MAG 60 + Shotgun + Sword |
-| 3 | Shotgun + MAG 60 + RAY GUN |
-| 4 | 2× RAY GUN per player |
+| 1 | Pulse Pistol + MAG 60 + Sword |
+| 2 | Pulse Pistol + MAG 60 + Shotgun + Sword |
+| 3 | Shotgun + MAG 60 + Pulse Pistol |
+| 4 | 2× Pulse Pistol per player |
 | 5 | 3× Shotguns per player |
-| 6+ | RAY GUN + MAG 60 + Shotgun |
+| 6+ | Pulse Pistol + MAG 60 + Shotgun |
 
 - **MAG 60** — zero recoil, 30-round mag
-- **RAY GUN** — 150 damage per shot
+- **Pulse Pistol** — 150 damage per shot
 - **Shotgun** — explosive rounds
 
 ### Economy
@@ -53,7 +53,7 @@ Three weapon purchase stations placed randomly each level:
 | Weapon | Price |
 |---|---|
 | Shotgun | $500 |
-| RAY GUN | $1000 |
+| Pulse Pistol | $1000 |
 | Photon Blaster | $1000 |
 
 Stand near a station for 5 seconds to purchase. Insufficient funds trigger a character voice line.
